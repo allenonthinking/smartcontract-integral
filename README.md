@@ -75,9 +75,9 @@ allen-security
 - 执行doc/db.sql文件，初始化数据【按需导入表结构及数据】
 - 修改db.properties文件，更新MySQL账号和密码
 - Eclipse、IDEA执行【clean package tomcat7:run】命令，即可运行项目
-- 项目访问路径：http://localhost:8080/allen-security
+- 项目访问路径：http://localhost:8080/
 - 账号密码：admin/admin
-- swagger文档路径：http://localhost:8080/allen-security/swagger/index.html
+- swagger文档路径：http://localhost:8080/swagger/index.html
 
 <br>
 
