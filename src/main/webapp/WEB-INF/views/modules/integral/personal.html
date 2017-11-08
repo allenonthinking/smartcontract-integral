@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>个人积分</title>
+<#include "/layheader.html">
+</head>
+<body>
+<div id="rrapp" v-cloak>
+	<div v-show="showInfo">
+		<div class="sysNotice col">
+				<blockquote class="layui-elem-quote title">{{title}}</blockquote>
+				<table class="layui-table">
+					<colgroup>
+						<col width="150">
+						<col>
+					</colgroup>
+					<tbody>
+						<tr>
+							<td>用户名</td>
+							<td class="username">{{user.username}}</td>
+						</tr>
+						<tr>
+							<td>所属部门</td>
+							<td class="deptName">{{user.deptName}}</td>
+						</tr>
+						<tr>
+							<td>邮箱</td>
+							<td class="emaile">{{user.emaile}}</td>
+						</tr>
+						<tr>
+							<td>手机号</td>
+							<td class="mobile">{{user.mobile}}</td>
+						</tr>
+						<tr>
+							<td>角色</td>
+							<td class="roleName">{{user.roleName}}</td>
+						</tr>
+						<tr>
+							<td>状态</td>
+							<td class="status">
+								<span v-if="user.status==1">正常</span>
+								<span v-else>禁止</span>
+							</td>
+						</tr>
+							<tr v-if="!integralshow">
+								<td>积分账户</td>
+								<td class="integralaccount">
+										未绑定 <button class="layui-btn layui-btn-danger batchDel"  @click="binding"><i class="fa fa-plus"></i>&nbsp;绑定</button>
+								</td>
+							</tr>							
+							<tr v-else>
+								<td>积分账户</td>
+								<td class="integralaccount">
+									{{integral.address}} <a class="layui-btn" @click="queryintegral">查询积分</a>
+								</td>
+							</tr>						
+					</tbody>
+				</table>
+		</div>
+		<div id="integralLayer" style="display: none;">
+			<div class="layui-form" >
+				<div class="layui-form-item">
+			    	<label class="layui-form-label">积分余额</label>
+			    	<label class="layui-form-label laber-account">{{integralbalance}}</label>
+			    	&nbsp;&nbsp;&nbsp;<a class="layui-btn layui-btn-danger batchDel" href="manager.html"><i class="fa fa-plus"></i>积分兑换</a>
+				</div>
+			</div>
+		</div>		
+	</div>
+	<div v-show="!showInfo">
+		<blockquote class="layui-elem-quote title">{{title}}</blockquote>
+		<div class="layui-form layui-form-pane" >
+			<div class="layui-form-item">
+				<label class="layui-form-label">积分密码</label>
+				<div class="layui-input-inline">
+					<input type="password" name="password" lay-verify="pass"  v-model="inegralpassword"
+						placeholder="请输入密码" autocomplete="off" class="layui-input">
+				</div>
+				<div class="layui-form-mid layui-word-aux">请填写6到12位密码</div>
+			</div>
+<!-- 		  <div class="layui-form-item">
+		    <label class="layui-form-label">密码确认</label>
+		    <div class="layui-input-inline">
+		      <input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+		    </div>
+		    <div class="layui-form-mid layui-word-aux"><span class="tip" style="color: red;">两次输入的密码不一致</span></div>
+		  </div> -->
+		  <div class="layui-form-item">
+		    <div class="layui-input-block">
+		      <button class="layui-btn" @click="createkeystore">生成地址</button>
+		      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+		    </div>
+		  </div>		  			
+		</div>
+	</div>
+	<div  v-show="!showInfo">
+		<form  class="layui-form layui-form-pane" >
+		  <div class="layui-form-item">
+		    <label class="layui-form-label">积分地址</label>
+		    <div class="layui-input-block">
+		      <input type="text" name="title" lay-verify="title" autocomplete="off"  readonly="readonly" class="layui-input" v-model="newintegral.address">
+		    </div>
+		  </div>
+		  <div class="layui-form-item layui-form-text">
+		    <label class="layui-form-label">keystore</label>
+		    <div class="layui-input-block">
+		      <textarea readonly="readonly" class="layui-textarea" v-model="newintegral.keystore">{{newintegral.keystore}}</textarea>
+		    </div>
+		  </div>		  
+		  <div class="layui-form-item">
+		    <div class="layui-input-block">
+				<#if shiro.hasPermission("integral:user:binding")>
+			      <button class="layui-btn" @click="bingdingintegralaccount">绑定积分地址</button>
+				</#if>		    
+		    </div>
+		  </div>		  			
+		</form>	
+	</div>	
+</div>
+
+<!-- 选择部门 -->
+<div id="deptLayer" style="display: none;padding:10px;">
+	<ul id="deptTree" class="ztree"></ul>
+</div>
+<script src="${request.contextPath}/statics/js/modules/integral/personal.js?_${.now?long}"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.allen.modules.integral.dao.UserIntegralDao">
+	<insert id="save"  parameterType="io.allen.modules.integral.entity.UserIntegralEntity" useGeneratedKeys="true" keyProperty="integral_id">
+		insert into sys_user_integral
+		(
+			`user_id`, 
+			`integral_id`
+		)
+		values
+		(
+			#{userId}, 
+			#{integralId}
+		)
+	</insert>
+	
+	<delete id="delete">
+		delete from sys_user_integral where user_id = #{value}
+	</delete>
+
+</mapper>

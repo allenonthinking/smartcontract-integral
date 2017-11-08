@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.allen.modules.integral.dao.IntegralDao">
+	<select id="queryByUserId" resultType="io.allen.modules.integral.entity.IntegralEntity">
+		select i.* from sys_integral i ,sys_user_integral ui where ui.integral_id=i.integral_id and ui.user_id = #{value} limit 1
+	</select>
+
+	<insert id="save" parameterType="io.allen.modules.integral.entity.IntegralEntity" useGeneratedKeys="true" keyProperty="integralId">
+		insert into sys_integral
+		(
+			`integral_id`, 
+			`address`, 
+			`keystore`,
+			`create_time`
+		)
+		values
+		(
+			#{integralId}, 
+			#{address},
+			#{keystore},
+			#{createTime}
+		)
+	</insert>
+</mapper>

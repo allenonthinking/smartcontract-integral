@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.allen.modules.sys.dao.SysRoleDao">
+
+	<select id="queryObject" resultType="io.allen.modules.sys.entity.SysRoleEntity">
+		select * from sys_role where role_id = #{value}
+	</select>
+	
+	<select id="queryByUserId" resultType="io.allen.modules.sys.entity.SysRoleEntity">
+		select r.* from sys_role r ,sys_user_role ur where r.role_id=ur.role_id and ur.user_id = #{value} limit 1
+	</select>
+	
+	<select id="queryList" resultType="io.allen.modules.sys.entity.SysRoleEntity">
+		select r.*, (select d.name from sys_dept d where d.dept_id = r.dept_id) deptName from sys_role r
+		<where>
+			<if test="roleName != null and roleName.trim() != ''">
+				and r.`role_name` like concat('%',#{roleName},'%')
+			</if>
+
+			<!--  数据过滤  -->
+			${filterSql}
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by r.${sidx} ${order}
+			</when>
+			<otherwise>
+				order by r.role_id asc
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	<select id="queryNormalList" resultType="io.allen.modules.sys.entity.SysRoleEntity">
+		select r.*, (select d.name from sys_dept d where d.dept_id = r.dept_id) deptName from sys_role r 
+		<where>
+			<if test="roleName != null and roleName.trim() != ''">
+				and r.`role_name` like concat('%',#{roleName},'%')
+			</if>
+			<if test="true">
+				and  r.`type` = 2
+			</if>
+			
+			<!--  数据过滤  -->
+			${filterSql}
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by r.${sidx} ${order}
+			</when>
+			<otherwise>
+				order by r.role_id asc
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+		<select id="querySystemList" resultType="io.allen.modules.sys.entity.SysRoleEntity">
+		select r.*, (select d.name from sys_dept d where d.dept_id = r.dept_id) deptName from sys_role r 
+		<where>
+			<if test="roleName != null and roleName.trim() != ''">
+				and r.`role_name` like concat('%',#{roleName},'%')
+			</if>
+			<if test="true">
+				and  r.`type` = 1
+			</if>
+			
+			<!--  数据过滤  -->
+			${filterSql}
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by r.${sidx} ${order}
+			</when>
+			<otherwise>
+				order by r.role_id asc
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	<select id="queryTotal" resultType="int">
+		select count(*) from sys_role r
+		<where>
+			<if test="roleName != null and roleName.trim() != ''">
+				and r.`role_name` like concat('%',#{roleName},'%')
+			</if>
+
+			<!--  数据过滤  -->
+			${filterSql}
+		</where>
+	</select>
+	
+	<insert id="save" parameterType="io.allen.modules.sys.entity.SysRoleEntity" useGeneratedKeys="true" keyProperty="roleId">
+		insert into sys_role
+		(
+			`role_id`, 
+			`role_name`, 
+			`remark`,
+			`dept_id`,
+			`type`, 
+			`create_time`
+		)
+		values
+		(
+			#{roleId}, 
+			#{roleName}, 
+			#{remark},
+			#{deptId},
+			#{type},
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.allen.modules.sys.entity.SysRoleEntity">
+		update sys_role 
+		<set> 
+			<if test="roleName != null">`role_name` = #{roleName}, </if>
+			<if test="remark != null">`remark` = #{remark},</if>
+			<if test="deptId != null">`dept_id` = #{deptId}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+		</set>
+		where role_id = #{roleId}
+	</update>
+	
+	<delete id="deleteBatch">
+		delete from sys_role where role_id in 
+		<foreach item="roleId" collection="array" open="(" separator="," close=")">
+			#{roleId}
+		</foreach>
+		;
+		delete from sys_role_menu where role_id in 
+		<foreach item="roleId" collection="array" open="(" separator="," close=")">
+			#{roleId}
+		</foreach>
+		;
+		delete from sys_role_dept where role_id in
+		<foreach item="roleId" collection="array" open="(" separator="," close=")">
+			#{roleId}
+		</foreach>
+		;
+		delete from sys_user_role where role_id in 
+		<foreach item="roleId" collection="array" open="(" separator="," close=")">
+			#{roleId}
+		</foreach>
+	</delete>
+
+</mapper>
