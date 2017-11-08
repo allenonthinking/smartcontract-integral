@@ -134,7 +134,7 @@ INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, 
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('36', '0', '员工', NULL, NULL, '0', 'fa fa-male', '0');
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('37', '0', '积分', NULL, NULL, '0', 'fa fa-diamond', '0');
 
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('38', '36', '员工管理', 'modules/sys/user.html', NULL, '1', 'fa fa-users', '1');
+INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('38', '36', '员工管理', 'modules/sys/user.html', 'sys:dept:list', '1', 'fa fa-users', '1');
 
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('39', '38', '查看', NULL, 'sys:user:list,sys:user:info', '2', NULL, '0');
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('40', '38', '新增', NULL, 'sys:user:save,sys:role:select:normal', '2', NULL, '0');
