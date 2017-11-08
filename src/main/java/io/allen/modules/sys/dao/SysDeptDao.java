@@ -2,6 +2,8 @@ package io.allen.modules.sys.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import io.allen.modules.sys.entity.SysDeptEntity;
 
 /**
@@ -11,6 +13,7 @@ import io.allen.modules.sys.entity.SysDeptEntity;
  * @email sunlightcs@gmail.com
  * @date 2017-06-20 15:23:47
  */
+@Mapper
 public interface SysDeptDao extends BaseDao<SysDeptEntity> {
 
     /**

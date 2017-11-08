@@ -2,6 +2,8 @@ package io.allen.modules.sys.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import io.allen.modules.sys.entity.SysRoleDeptEntity;
 
 /**
@@ -11,6 +13,7 @@ import io.allen.modules.sys.entity.SysRoleDeptEntity;
  * @email sunlightcs@gmail.com
  * @date 2017年6月21日 23:33:46
  */
+@Mapper
 public interface SysRoleDeptDao extends BaseDao<SysRoleDeptEntity> {
 	
 	/**

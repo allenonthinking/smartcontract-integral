@@ -3,6 +3,8 @@ package io.allen.modules.sys.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import io.allen.modules.sys.entity.SysUserEntity;
 
 /**
@@ -12,6 +14,7 @@ import io.allen.modules.sys.entity.SysUserEntity;
  * @email sunlightcs@gmail.com
  * @date 2016年9月18日 上午9:34:11
  */
+@Mapper
 public interface SysUserDao extends BaseDao<SysUserEntity> {
 	
 	/**
@@ -64,8 +67,4 @@ public interface SysUserDao extends BaseDao<SysUserEntity> {
 	 * 查询积分用户总数
 	 */
 	int queryIntegralAccountTotal(Map<String, Object> map);
-	
-	
-	
-	
 }

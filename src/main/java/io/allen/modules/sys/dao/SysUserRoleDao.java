@@ -2,6 +2,8 @@ package io.allen.modules.sys.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import io.allen.modules.sys.entity.SysUserRoleEntity;
 
 /**
@@ -11,6 +13,7 @@ import io.allen.modules.sys.entity.SysUserRoleEntity;
  * @email sunlightcs@gmail.com
  * @date 2016年9月18日 上午9:34:46
  */
+@Mapper
 public interface SysUserRoleDao extends BaseDao<SysUserRoleEntity> {
 	
 	/**

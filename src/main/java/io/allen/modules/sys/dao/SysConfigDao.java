@@ -1,6 +1,7 @@
 package io.allen.modules.sys.dao;
 
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import io.allen.modules.sys.entity.SysConfigEntity;
@@ -12,6 +13,7 @@ import io.allen.modules.sys.entity.SysConfigEntity;
  * @email sunlightcs@gmail.com
  * @date 2016年12月4日 下午6:46:16
  */
+@Mapper
 public interface SysConfigDao extends BaseDao<SysConfigEntity> {
 
 	/**
