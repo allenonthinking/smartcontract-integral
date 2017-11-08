@@ -3,7 +3,7 @@ $(function () {
         url: baseURL + 'integral/manager/list',
         datatype: "json",
         colModel: [			
-			{ label: '用户ID', name: 'userId', index: "user_id", width: 15, key: true },
+			{ label: '用户ID', name: 'userId', index: "user_id", width: 20, key: true },
 			{ label: '用户名', name: 'username', width: 40 },
             { label: '所属部门', name: 'deptName', width: 40 },
 			{ label: '积分账户', name: 'integralAddress', width: 70},
