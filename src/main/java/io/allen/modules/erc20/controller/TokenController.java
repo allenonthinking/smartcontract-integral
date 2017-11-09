@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import io.allen.common.utils.R;
+import io.allen.modules.erc20.generated.CryptoUtils;
 import io.allen.modules.erc20.generated.IntegralConfig;
 import io.allen.modules.erc20.generated.NodeConfiguration;
 import io.allen.modules.erc20.generated.TransactionResponse;
@@ -36,31 +37,20 @@ public class TokenController {
 	@Autowired
     private  IntegralConfig integralConfig;
 	
-	
-    private String checkAddress(String input) {
-        if (input != null) {
-            if (input.startsWith("0x")) {
-                return input.toLowerCase() ;
-            }
-            return ("0x"+input).toLowerCase();
-        }
-        return input;
-    }
-    
 	  @RequestMapping("/integral/{address}")
 	  public R getIntegral(
 	            @PathVariable String address) {
 		  
-		  	String jytContractAddress = checkAddress(integralConfig.getContractAddress());
+		  	String jytContractAddress = CryptoUtils.checkAddress(integralConfig.getContractAddress());
 		  	// 积分
-		  	BigInteger integral = contractService.balanceOfBigInteger(jytContractAddress, checkAddress(address));
+		  	BigInteger integral = contractService.balanceOfBigInteger(jytContractAddress, CryptoUtils.checkAddress(address));
 		  	// 精度
 		  	BigInteger decimals = contractService.decimalsBigInteger(jytContractAddress);
 		  	BigDecimal  decimalIntegral = new BigDecimal(integral);
 		  	// 小数点左移
 		  	decimalIntegral = decimalIntegral.movePointLeft(decimals.intValue());
 	        // 保留小数点后俩位
-		  	return R.ok().put("integralbalance", decimalIntegral.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+		  	return R.ok().put("integralBalance", decimalIntegral.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
 		}
 	  
 	  

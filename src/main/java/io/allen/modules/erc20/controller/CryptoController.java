@@ -9,6 +9,7 @@ import io.allen.common.utils.R;
 import io.allen.crypto.ECKey;
 import io.allen.crypto.EthereumAccount;
 import io.allen.crypto.KeystoreFormat;
+import io.allen.modules.erc20.generated.CryptoUtils;
 import io.allen.modules.integral.entity.IntegralEntity;
 
 @RestController
@@ -21,22 +22,10 @@ public class CryptoController {
 	        account.init(key);
 	        KeystoreFormat keystoreFormat = new KeystoreFormat();
 	        String content = keystoreFormat.toKeystore(key, password);
-	        final String address =toHexString(account.getAddress());
+	        final String address =CryptoUtils.toHexString(account.getAddress());
 	        IntegralEntity integral = new IntegralEntity();
 	        integral.setAddress(address);
 	        integral.setKeystore(content);
 		return R.ok().put("integral", integral);
 	}
-    private String toHexString(byte[] value) {
-        return value == null ? "" : Hex.toHexString(value);
-    }	
-    private String cleanAddress(String input) {
-        if (input != null) {
-            if (input.startsWith("0x")) {
-                return input.substring(2).toLowerCase();
-            }
-            return input.toLowerCase();
-        }
-        return input;
-    }
 }
