@@ -9,8 +9,8 @@ $(function () {
 			{ label: '积分账户', name: 'integralAddress', width: 70},
 			{ label: '操作', name: 'integralAddressView', width: 70, formatter: function(value, options, row){
 				return row.integralAddress === null ? 
-						'<span class="label label-danger">未绑定</span>' :
-						'<span class="layui-btn layui-btn-success pointer" onclick="vm.balance('+row.userId+')">余额</span><span class="layui-btn layui-btn-danger pointer" onclick="vm.sendIntegral('+row.userId+')">发放积分</span>';
+						'<span class="btn btn-small btn-warning">未绑定</span>' :
+						'<span class="btn btn-small btn-info pointer" onclick="vm.balance('+row.userId+')">余额</span>&nbsp;<span class="btn btn-small btn-danger pointer" onclick="vm.sendIntegral('+row.userId+')">发放积分</span>';
 			}},	
 			{ label: '创建时间', name: 'createTime', index: "create_time", width: 60}
         ],
@@ -47,8 +47,16 @@ var vm = new Vue({
 	        q:{
 	            username: null
 	        },
+	        title:null,
 	        showList: true,
-	        integralbalance:0
+	        integralObject:{
+	            userId:null,
+	            username:null,
+	            balance:0,
+		        address:null,
+		        password:null
+	        },
+	        integralBalance:0 
 	    },
 	    methods: {
 	    	search: function () {
@@ -58,22 +66,44 @@ var vm = new Vue({
 	            var rowData = getRowData(rowid);
 	            console.log(rowData.integralAddress);
 	        	$.get(baseURL + "token/integral/"+rowData.integralAddress, function(r){
-	        		vm.integralbalance=r.integralbalance;
+	        		vm.integralBalance = r.integralbalance;
 	    			layer.open({
 	    				type: 1,
-	    				skin: 'layui-layer-molv',
+	    				//skin: 'layui-layer-molv',
 	    				title: "福利积分",
 	    				area: ['450px', '150px'],
-	    				shadeClose: false,
-	    				content: jQuery("#integralLayer")
+	    				shadeClose: true,
+	    				content: '<label class="layui-form-label"  style="width:90px">积分余额:</label><label class="layui-form-label laber-account">'+ r.integralBalance +'</label>'
+	    				//content: jQuery("#integralLayer")
 	    			});   
 				});	            
 	        },
 	        sendIntegral :function (rowid){
 	        	var rowData = getRowData(rowid);
+	        	vm.title="积分发放";
+	        	vm.integralObject = {userId:rowData.userId, username:rowData.username, balance:0, address:rowData.integralAddress};
 	        	vm.showList = false;
 	        },
+	        saveBalance	:function(){
+	            var url = "integral/manager/savebalance";
+	            $.ajax({
+	                type: "POST",
+	                url: baseURL + url,
+	                contentType: "application/json",
+	                data: JSON.stringify(vm.integralObject),
+	                success: function(r){
+	                    if(r.code === 0){
+	                        alert('操作成功', function(){
+	                            vm.reload();
+	                        });
+	                    }else{
+	                        alert(r.msg);
+	                    }
+	                }
+	            });	        	
+	        },
 	        reload: function () {
+	        	vm.showList = true;
 	            var page = $("#jqGrid").jqGrid('getGridParam','page');
 	            $("#jqGrid").jqGrid('setGridParam',{
 	                postData:{'username': vm.q.username},

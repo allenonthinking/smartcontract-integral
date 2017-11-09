@@ -4,14 +4,19 @@ package io.allen.modules.integral.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.allen.common.annotation.SysLog;
 import io.allen.common.utils.PageUtils;
 import io.allen.common.utils.Query;
 import io.allen.common.utils.R;
+import io.allen.common.validator.ValidatorUtils;
+import io.allen.common.validator.group.AddGroup;
 import io.allen.modules.integral.entity.IntegralEntity;
 import io.allen.modules.integral.service.IntegralService;
 import io.allen.modules.sys.controller.AbstractController;
@@ -50,4 +55,14 @@ public class IntegralManagerController extends AbstractController{
 		return R.ok().put("page", pageUtil);
 	}
 	
+	/**
+	 * 发放积分
+	 */
+	@SysLog("发放积分")
+	@RequestMapping("/savebalance")
+//	@RequiresPermissions("integral:manager:savebalance")
+	public R saveBalance(@RequestBody Map<String, Object> params){
+		System.out.println(params);
+		return R.ok();
+	}
 }
