@@ -4,10 +4,10 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: '用户ID', name: 'userId', index: "user_id", width: 20, key: true },
-			{ label: '用户名', name: 'username', width: 40 },
+			{ label: '用户名', name: 'username', width: 30 },
             { label: '所属部门', name: 'deptName', width: 40 },
-			{ label: '积分账户', name: 'integralAddress', width: 70},
-			{ label: '操作', name: 'integralAddressView', width: 70, formatter: function(value, options, row){
+			{ label: '积分账户', name: 'integralAddress', width: 95},
+			{ label: '操作', name: 'integralAddressView', width: 55, formatter: function(value, options, row){
 				return row.integralAddress === null ? 
 						'<span class="btn btn-small btn-warning">未绑定</span>' :
 						'<span class="btn btn-small btn-info pointer" onclick="vm.balance('+row.userId+')">余额</span>&nbsp;<span class="btn btn-small btn-danger pointer" onclick="vm.sendIntegral('+row.userId+')">发放积分</span>';
