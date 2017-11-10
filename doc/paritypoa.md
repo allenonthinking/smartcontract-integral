@@ -21,7 +21,19 @@ authority1
 a35b991d906074609f95614c32b95e0e5140257d
 
 
+parity --config node0.toml signer new-token
 
-./geth1.7.2 --datadir data init genesis.json
 
-./geth1.7.2 --datadir data   --rpcaddr 0.0.0.0  console
+{
+ "jsonrpc":"2.0",
+ "method":"parity_enode",
+ "params":[],
+ "id":0
+}
+
+{
+ "jsonrpc":"2.0",
+ "method":"parity_addReservedPeer",
+ "params":["enode://6c4f53fc8536553c8f151516b7ee17f4b0719d21abe8fdd273588419cf467e3deafb414cd8efa331e4ad55fd7c2820a303a160895129e142a4306e7c3367d67c@172.20.160.80:30300"],
+ "id":0
+}
