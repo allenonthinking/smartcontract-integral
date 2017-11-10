@@ -63,6 +63,8 @@ var vm = new Vue({
             username: null
         },
         showList: true,
+        integralInfo:false,
+        formInfo:false,
         title:null,
         roleList:{},
         user:{
@@ -70,7 +72,10 @@ var vm = new Vue({
             deptId:null,
             deptName:null,
             roleIdList:[]
-        }
+        },
+        inegralaccount:{
+        	password:null,
+        	prikey:null}
     },
     methods: {
         query: function () {
@@ -78,6 +83,8 @@ var vm = new Vue({
         },
         add: function(){
             vm.showList = false;
+            vm.integralInfo=false;
+            vm.formInfo=true;
             vm.title = "新增";
             vm.roleList = {};
             vm.user = {deptName:null, deptId:null, status:1, roleIdList:[]};
@@ -106,6 +113,8 @@ var vm = new Vue({
             }
 
             vm.showList = false;
+            vm.integralInfo=false;
+            vm.formInfo=true;
             vm.title = "修改";
 
             vm.getUser(userId);
@@ -167,6 +176,35 @@ var vm = new Vue({
                 vm.roleList = r.list;
             });
         },
+        binding: function(){
+            var userId = getSelectedRow();
+            if(userId == null){
+                return ;
+            }
+            vm.showList = false;
+            vm.formInfo=false;
+            vm.integralInfo=true;
+            vm.title = "绑定积分账户";
+            vm.getUser(userId);
+        },
+        createkeystorebyprikey: function () {
+            var url = "sys/admin/binding";
+            $.ajax({
+                type: "POST",
+                url: baseURL + url,
+                contentType: "application/json",
+                data: JSON.stringify(vm.inegralaccount),
+                success: function(r){
+                    if(r.code === 0){
+                        alert('操作成功', function(){
+                            vm.reload();
+                        });
+                    }else{
+                        alert(r.msg);
+                    }
+                }
+            });        	
+        },
         deptTree: function(){
             layer.open({
                 type: 1,
@@ -190,6 +228,8 @@ var vm = new Vue({
         },
         reload: function () {
             vm.showList = true;
+            vm.integralInfo=false;
+            vm.formInfo=false;
             var page = $("#jqGrid").jqGrid('getGridParam','page');
             $("#jqGrid").jqGrid('setGridParam',{
                 postData:{'username': vm.q.username},

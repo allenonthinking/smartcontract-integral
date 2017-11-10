@@ -21,12 +21,43 @@
 			<#if shiro.hasPermission("sys:admin:delete")>
 			<a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
 			</#if>
+			<#if shiro.hasPermission("sys:admin:binding")>
+			<a class="btn btn-primary" @click="binding"><i class="fa fa-trash-o"></i>&nbsp;绑定积分账户</a>
+			</#if>			
 		</div>
 	    <table id="jqGrid"></table>
 	    <div id="jqGridPager"></div>
     </div>
-
-	<div v-show="!showList" class="panel panel-default">
+	<div v-show="integralInfo">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal">
+			<div class="form-group">
+				<div class="col-sm-2 control-label">用户名</div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" readonly="readonly" v-model="user.username" placeholder="登录账号"/>
+				</div>
+			</div>		
+			<div class="form-group">
+				<div class="col-sm-2 control-label">积分账户密码</div>
+				<div class="col-sm-10">
+					<input type="password" name="password" lay-verify="pass"  v-model="inegralaccount.password"
+						placeholder="请输入密码" autocomplete="off" >
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label">私钥</div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" v-model="inegralaccount.prikey" placeholder="私钥"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label"></div>
+				<input type="button" class="btn btn-primary" @click="createkeystorebyprikey" value="确定"/>
+				&nbsp;&nbsp;<input type="reset" class="btn btn-warning"  value="重置"/>
+			</div>
+		</form>
+	</div>
+	<div v-show="formInfo" class="panel panel-default">
 		<div class="panel-heading">{{title}}</div>
 		<form class="form-horizontal">
 			<div class="form-group">
