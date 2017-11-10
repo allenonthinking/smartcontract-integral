@@ -43,3 +43,7 @@ allen:
     fromAddress: 0x00be47da65f4cbfa941a97629f3873b0ad006d27
 
     integralContrctAddress: 0x2a89331b94897110b2fc9a74127b433babb0ffbe
+
+    gaslimit: 3000000
+
+    txdata: jieyue
