@@ -36,8 +36,7 @@
 		<jstl-version>1.2</jstl-version>
 		<taglibs-version>1.1.2</taglibs-version>
 		<freemarker-version>2.3.23</freemarker-version>
-		<web3j-version>2.2.2</web3j-version>
-		<!-- <web3j-version>3.0.2</web3j-version> -->
+		<web3j-version>2.3.0</web3j-version>
 		<lombok-version>1.16.16</lombok-version>
 		<ethereumj-version>1.5.0-RELEASE</ethereumj-version>
 	</properties>
