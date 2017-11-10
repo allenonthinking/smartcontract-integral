@@ -1,0 +1,20 @@
+[parity]
+chain = "allen-spec.json"
+base_path = "/home/ubuntu/bc/parity1"
+[network]
+port = 30301
+[rpc]
+port = 8555
+apis = ["web3", "eth", "net", "personal", "parity", "parity_set", "traces", "rpc", "parity_accounts"]
+interface = "0.0.0.0"
+[ui]
+port = 8181
+interface = "0.0.0.0"
+[websockets]
+port = 8451
+interface = "0.0.0.0"
+[account]
+password = ["node.pwds"]
+[mining]
+engine_signer = "0xa35b991d906074609f95614c32b95e0e5140257d"
+reseal_on_txs = "none"
