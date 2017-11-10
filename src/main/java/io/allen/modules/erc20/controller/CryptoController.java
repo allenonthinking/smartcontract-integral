@@ -1,6 +1,5 @@
 package io.allen.modules.erc20.controller;
 
-import org.spongycastle.util.encoders.Hex;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
