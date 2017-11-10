@@ -20,7 +20,6 @@ var vm = new Vue({
             username: null
         },
         showInfo: true,
-        keystoreshow:false,
         title:null,
         roleList:{},
         integralshow:false,
@@ -101,7 +100,6 @@ var vm = new Vue({
 			});
         },
         createkeystore: function () {
-        	keystoreshow:true;
         	$.get(baseURL + "crypto/keystore/"+vm.inegralpassword, function(r){
         		vm.newintegral = r.integral;
         		console.log(r.integral.address);

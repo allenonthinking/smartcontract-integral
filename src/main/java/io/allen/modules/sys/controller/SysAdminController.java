@@ -9,6 +9,11 @@ import io.allen.common.validator.Assert;
 import io.allen.common.validator.ValidatorUtils;
 import io.allen.common.validator.group.AddGroup;
 import io.allen.common.validator.group.UpdateGroup;
+import io.allen.crypto.ECKey;
+import io.allen.crypto.EthereumAccount;
+import io.allen.crypto.KeystoreFormat;
+import io.allen.modules.integral.entity.IntegralEntity;
+import io.allen.modules.integral.service.IntegralService;
 import io.allen.modules.sys.entity.SysUserEntity;
 import io.allen.modules.sys.service.SysUserRoleService;
 import io.allen.modules.sys.service.SysUserService;
@@ -16,9 +21,11 @@ import io.allen.modules.sys.shiro.ShiroUtils;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.spongycastle.util.encoders.Hex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +42,8 @@ public class SysAdminController extends AbstractController {
 	private SysUserService sysUserService;
 	@Autowired
 	private SysUserRoleService sysUserRoleService;
-	
+	@Autowired
+	private IntegralService integralService;
 	/**
 	 * 系统用户列表
 	 */
@@ -60,6 +68,39 @@ public class SysAdminController extends AbstractController {
 	@RequestMapping("/info")
 	public R info(){
 		return R.ok().put("user", getUser());
+	}
+	
+ 	/**
+	 * 管理员积分账户
+	 */
+	@RequestMapping("/account")
+	public R integralAccount(){
+		SysUserEntity user = getUser();
+		
+		//获取用户积分账户
+		IntegralEntity integral = integralService.queryByUserId(user.getUserId());
+		
+		return R.ok().put("integral", integral);
+	}
+	
+	@SysLog("管理员绑定积分账户")
+	@RequestMapping("/binding")
+	//@RequiresPermissions("sys:admin:binding")
+	public R save(@RequestBody Map<String, String> params){
+		String prikey = params.get("prikey");
+		String password = params.get("password");
+		
+  	 final ECKey key = ECKey.fromPrivate(new BigInteger(prikey,16));
+        EthereumAccount account = new EthereumAccount();
+        account.init(key);
+        KeystoreFormat keystoreFormat = new KeystoreFormat();
+        String content = keystoreFormat.toKeystore(key, password);
+        final String address =Hex.toHexString((account.getAddress()));
+        System.out.println(content);
+        System.out.println(address);
+//		integralService.bindingIntegralUser(integral, getUser());
+		return R.ok();
+		
 	}
 	
 	/**
