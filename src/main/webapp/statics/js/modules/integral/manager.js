@@ -85,6 +85,9 @@ var vm = new Vue({
 	        	vm.showList = false;
 	        },
 	        saveBalance	:function(){
+	            if(vm.validator()){
+	                return ;
+	            }
 	            var url = "integral/manager/savebalance";
 	            $.ajax({
 	                type: "POST",
@@ -93,15 +96,27 @@ var vm = new Vue({
 	                data: JSON.stringify(vm.integralObject),
 	                success: function(r){
 	                    if(r.code === 0){
-	                        alert('操作成功', function(){
-	                            vm.reload();
-	                        });
+//	                        alert('记录交易ID:'+r.msg, function(){
+//	                            vm.reload();
+//	                        });
 	                    }else{
 	                        alert(r.msg);
 	                    }
+	                    vm.reload();
 	                }
 	            });	        	
 	        },
+	        validator: function () {
+	        	var r = /^\+?[1-9][0-9]*$/;
+	            if(!r.test(vm.integralObject.balance)){
+	                alert("1-100间正整数");
+	                return true;
+	            }
+	            if(vm.integralObject.balance > 100){
+	            	 alert("最大分配100");
+		             return true;
+	            }
+	        },	        
 	        reload: function () {
 	        	vm.showList = true;
 	            var page = $("#jqGrid").jqGrid('getGridParam','page');

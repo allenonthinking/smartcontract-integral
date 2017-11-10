@@ -89,7 +89,7 @@ var vm = new Vue({
         },
         queryintegral: function(){
         	$.get(baseURL + "token/integral/"+vm.integral.address, function(r){
-        		vm.integralbalance=r.integralbalance;
+        		vm.integralbalance=r.integralBalance;
     			layer.open({
     				type: 1,
     				skin: 'layui-layer-molv',
