@@ -40,9 +40,9 @@ allen:
 
     nodeEndpoint: http://192.168.56.101:8545
 
-    fromAddress: 0x00be47da65f4cbfa941a97629f3873b0ad006d27
+    fromAddress: "0x1e07567302633f579023fba7b952442dfec89259"
 
-    integralContrctAddress: 0x64d5044ecbe43b04954441ac023c1be774dc6211
+    integralContrctAddress: "0x64d5044ecbe43b04954441ac023c1be774dc6211"
 
     gaslimit: 3000000
 
