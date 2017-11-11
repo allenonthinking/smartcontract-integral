@@ -1,4 +1,4 @@
-package io.allen.modules.erc20.generated;
+package io.allen.config;
 
 import java.math.BigInteger;
 
@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.http.HttpService;
+
+import io.allen.modules.erc20.generated.IntegralConfig;
+import io.allen.modules.erc20.generated.NodeConfiguration;
 
 /**
  * ERC2.0 TOKEN的配置文件
