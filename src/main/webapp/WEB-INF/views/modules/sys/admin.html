@@ -31,6 +31,7 @@
 	<div v-show="integralInfo">
 		<div class="panel-heading">{{title}}</div>
 		<form class="form-horizontal">
+			<input type="hidden" class="form-control" readonly="readonly" v-model="inegralaccount.userId"/>
 			<div class="form-group">
 				<div class="col-sm-2 control-label">用户名</div>
 				<div class="col-sm-10">

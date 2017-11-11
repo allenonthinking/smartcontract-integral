@@ -12,6 +12,8 @@ import io.allen.common.validator.group.UpdateGroup;
 import io.allen.crypto.ECKey;
 import io.allen.crypto.EthereumAccount;
 import io.allen.crypto.KeystoreFormat;
+import io.allen.modules.generator.entity.BcAdminAccountEntity;
+import io.allen.modules.generator.service.BcAdminAccountService;
 import io.allen.modules.integral.entity.IntegralEntity;
 import io.allen.modules.integral.service.IntegralService;
 import io.allen.modules.sys.entity.SysUserEntity;
@@ -44,6 +46,8 @@ public class SysAdminController extends AbstractController {
 	private SysUserRoleService sysUserRoleService;
 	@Autowired
 	private IntegralService integralService;
+	@Autowired
+	private BcAdminAccountService bcAdminAccountService ;
 	/**
 	 * 系统用户列表
 	 */
@@ -89,16 +93,35 @@ public class SysAdminController extends AbstractController {
 	public R save(@RequestBody Map<String, String> params){
 		String prikey = params.get("prikey");
 		String password = params.get("password");
-		
-  	 final ECKey key = ECKey.fromPrivate(new BigInteger(prikey,16));
-        EthereumAccount account = new EthereumAccount();
-        account.init(key);
-        KeystoreFormat keystoreFormat = new KeystoreFormat();
-        String content = keystoreFormat.toKeystore(key, password);
-        final String address =Hex.toHexString((account.getAddress()));
-        System.out.println(content);
-        System.out.println(address);
-//		integralService.bindingIntegralUser(integral, getUser());
+		String userIdString = params.get("userId");
+		Long userId = Long.valueOf(userIdString);
+		BcAdminAccountEntity bcaccount = bcAdminAccountService.queryByUserId(userId);
+		if(bcaccount!= null){
+			return R.error("此账户已绑定过");
+		}
+		ECKey key = null;
+        String content = null;
+        String address = null;
+		try {
+			key = ECKey.fromPrivate(new BigInteger(prikey, 16));
+			EthereumAccount account = new EthereumAccount();
+			account.init(key);
+			KeystoreFormat keystoreFormat = new KeystoreFormat();
+			content = keystoreFormat.toKeystore(key, password);
+			address = Hex.toHexString((account.getAddress()));
+		} catch (Exception e) {
+			return R.error("私钥格式错误");
+		}
+		if(content == null || address == null){
+			return R.error("生成账户地址错误");
+		}
+        
+        bcaccount = new BcAdminAccountEntity();
+        bcaccount.setAddress(address);
+        bcaccount.setKeystore(content);
+        
+        bcAdminAccountService.save(bcaccount, userId);
+        
 		return R.ok();
 		
 	}

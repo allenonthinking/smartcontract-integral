@@ -13,6 +13,12 @@ $(function () {
 					'<span class="label label-danger">禁用</span>' : 
 					'<span class="label label-success">正常</span>';
 			}},
+			{ label: '积分账户', name: 'integralAddress',hidden:true , width: 95},
+			{ label: '操作', name: 'integralAddressView', width: 55, formatter: function(value, options, row){
+				return row.integralAddress === null ? 
+						'<span class="btn btn-small btn-warning">未绑定</span>' :
+						'<span class="btn btn-small btn-info pointer" onclick="vm.balance('+row.userId+')">余额</span>';
+			}},	
 			{ label: '创建时间', name: 'createTime', index: "create_time", width: 85}
         ],
 		viewrecords: true,
@@ -74,6 +80,7 @@ var vm = new Vue({
             roleIdList:[]
         },
         inegralaccount:{
+        	userId:null,
         	password:null,
         	prikey:null}
     },
@@ -181,6 +188,9 @@ var vm = new Vue({
             if(userId == null){
                 return ;
             }
+            vm.inegralaccount.userId = userId;
+            vm.inegralaccount.prikey = null;
+            vm.inegralaccount.password = null;
             vm.showList = false;
             vm.formInfo=false;
             vm.integralInfo=true;
@@ -205,6 +215,21 @@ var vm = new Vue({
                 }
             });        	
         },
+        balance: function (rowid) {
+            var rowData = getRowData(rowid);
+            console.log(rowData.integralAddress);
+        	$.get(baseURL + "token/integral/"+rowData.integralAddress, function(r){
+    			layer.open({
+    				type: 1,
+    				//skin: 'layui-layer-molv',
+    				title: "福利积分",
+    				area: ['450px', '150px'],
+    				shadeClose: true,
+    				content: '<label class="layui-form-label"  style="width:90px">积分余额:</label><label class="layui-form-label laber-account">'+ r.integralBalance +'</label>'
+    				//content: jQuery("#integralLayer")
+    			});   
+			});	            
+        },        
         deptTree: function(){
             layer.open({
                 type: 1,

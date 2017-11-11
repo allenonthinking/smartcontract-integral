@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.allen.modules.generator.dao.BcAdminAccountDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.allen.modules.generator.entity.BcAdminAccountEntity" id="bcAdminAccountMap">
+        <result property="accountId" column="account_id"/>
+        <result property="address" column="address"/>
+        <result property="keystore" column="keystore"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+	<select id="queryByUserId" resultType="io.allen.modules.generator.entity.BcAdminAccountEntity">
+		select ba.* from bc_admin_account ba ,bc_user_admin bu where ba.account_id=bu.account_id and bu.user_id = #{value} limit 1
+	</select>
+	
+	<select id="queryObject" resultType="io.allen.modules.generator.entity.BcAdminAccountEntity">
+		select * from bc_admin_account where account_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.allen.modules.generator.entity.BcAdminAccountEntity">
+		select * from bc_admin_account
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by account_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from bc_admin_account 
+	</select>
+	 
+	<insert id="save" parameterType="io.allen.modules.generator.entity.BcAdminAccountEntity" useGeneratedKeys="true" keyProperty="accountId">
+		insert into bc_admin_account
+		(
+			`address`, 
+			`keystore`, 
+			`create_time`
+		)
+		values
+		(
+			#{address}, 
+			#{keystore}, 
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.allen.modules.generator.entity.BcAdminAccountEntity">
+		update bc_admin_account 
+		<set>
+			<if test="address != null">`address` = #{address}, </if>
+			<if test="keystore != null">`keystore` = #{keystore}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}</if>
+		</set>
+		where account_id = #{accountId}
+	</update>
+	
+	<delete id="delete">
+		delete from bc_admin_account where account_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from bc_admin_account where account_id in 
+		<foreach item="accountId" collection="array" open="(" separator="," close=")">
+			#{accountId}
+		</foreach>
+	</delete>
+
+</mapper>

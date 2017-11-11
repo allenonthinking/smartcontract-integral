@@ -145,6 +145,7 @@ INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, 
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('44', '37', '个人积分', 'modules/integral/personal.html', 'sys:role:oneself,sys:dept:list,integral:user:account', '1', 'fa fa-id-card', '1');
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('45', '44', '绑定积分账户', NULL, 'integral:user:binding', '2', NULL, '0');
 
+INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('46', '43', '积分发放', NULL, 'integral:manager:savebalance', '2', NULL, '0');
 
 
 
@@ -165,6 +166,23 @@ CREATE TABLE `sys_user_integral` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户与积分对应关系';
 
+
+-- 管理员区块链账户表
+CREATE TABLE `bc_admin_account` (
+  `account_id` bigint NOT NULL AUTO_INCREMENT,
+  `address` varchar(200) COMMENT '账户地址',
+  `keystore` varchar(1020) COMMENT 'keystore',
+  `create_time` datetime COMMENT '创建时间',
+  PRIMARY KEY (`account_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='区块链账户';
+
+-- 管理员用户与区块链账户对应关系
+CREATE TABLE `bc_user_admin` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` bigint COMMENT '用户ID',
+  `account_id` bigint COMMENT '账户ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='管理员用户与区块链账户对应关系';
 
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
