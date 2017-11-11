@@ -1,8 +1,5 @@
 package io.allen.config;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -17,6 +14,9 @@ import org.springframework.context.annotation.Configuration;
 
 import io.allen.modules.sys.shiro.RedisShiroSessionDAO;
 import io.allen.modules.sys.shiro.UserRealm;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Shiro的配置文件
