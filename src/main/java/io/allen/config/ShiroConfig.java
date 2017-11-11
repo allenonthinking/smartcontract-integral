@@ -28,68 +28,67 @@ import io.allen.modules.sys.shiro.UserRealm;
 @Configuration
 public class ShiroConfig {
 
-    @Bean("sessionManager")
-    public SessionManager sessionManager(RedisShiroSessionDAO redisShiroSessionDAO, @Value("${allen.redis.open}") boolean redisOpen,
-                                         @Value("${allen.shiro.redis}") boolean shiroRedis){
-        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-        //设置session过期时间为1小时(单位：毫秒)，默认为30分钟
-        sessionManager.setGlobalSessionTimeout(60 * 60 * 1000);
-        sessionManager.setSessionValidationSchedulerEnabled(true);
-        sessionManager.setSessionIdUrlRewritingEnabled(false);
+	@Bean("sessionManager")
+	public SessionManager sessionManager(RedisShiroSessionDAO redisShiroSessionDAO,
+			@Value("${allen.redis.open}") boolean redisOpen, @Value("${allen.shiro.redis}") boolean shiroRedis) {
+		DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+		// 设置session过期时间为1小时(单位：毫秒)，默认为30分钟
+		sessionManager.setGlobalSessionTimeout(60 * 60 * 1000);
+		sessionManager.setSessionValidationSchedulerEnabled(true);
+		sessionManager.setSessionIdUrlRewritingEnabled(false);
 
-        //如果开启redis缓存且allen.shiro.redis=true，则shiro session存到redis里
-        if(redisOpen && shiroRedis){
-            sessionManager.setSessionDAO(redisShiroSessionDAO);
-        }
-        return sessionManager;
-    }
+		// 如果开启redis缓存且allen.shiro.redis=true，则shiro session存到redis里
+		if (redisOpen && shiroRedis) {
+			sessionManager.setSessionDAO(redisShiroSessionDAO);
+		}
+		return sessionManager;
+	}
 
-    @Bean("securityManager")
-    public SecurityManager securityManager(UserRealm userRealm, SessionManager sessionManager) {
-        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(userRealm);
-        securityManager.setSessionManager(sessionManager);
+	@Bean("securityManager")
+	public SecurityManager securityManager(UserRealm userRealm, SessionManager sessionManager) {
+		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+		securityManager.setRealm(userRealm);
+		securityManager.setSessionManager(sessionManager);
 
-        return securityManager;
-    }
+		return securityManager;
+	}
 
+	@Bean("shiroFilter")
+	public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
+		ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
+		shiroFilter.setSecurityManager(securityManager);
+		shiroFilter.setLoginUrl("/login.html");
+		shiroFilter.setUnauthorizedUrl("/");
 
-    @Bean("shiroFilter")
-    public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
-        ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
-        shiroFilter.setSecurityManager(securityManager);
-        shiroFilter.setLoginUrl("/login.html");
-        shiroFilter.setUnauthorizedUrl("/");
+		Map<String, String> filterMap = new LinkedHashMap<>();
+		filterMap.put("/statics/**", "anon");
+		filterMap.put("/swagger/**", "anon");
+		filterMap.put("/login.html", "anon");
+		filterMap.put("/sys/login", "anon");
+		filterMap.put("/favicon.ico", "anon");
+		filterMap.put("/captcha.jpg", "anon");
+		filterMap.put("/**", "authc");
+		shiroFilter.setFilterChainDefinitionMap(filterMap);
 
-        Map<String, String> filterMap = new LinkedHashMap<>();
-        filterMap.put("/statics/**", "anon");
-        filterMap.put("/swagger/**", "anon");
-        filterMap.put("/login.html", "anon");
-        filterMap.put("/sys/login", "anon");
-        filterMap.put("/favicon.ico", "anon");
-        filterMap.put("/captcha.jpg", "anon");
-        filterMap.put("/**", "authc");
-        shiroFilter.setFilterChainDefinitionMap(filterMap);
+		return shiroFilter;
+	}
 
-        return shiroFilter;
-    }
+	@Bean("lifecycleBeanPostProcessor")
+	public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+		return new LifecycleBeanPostProcessor();
+	}
 
-    @Bean("lifecycleBeanPostProcessor")
-    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
-        return new LifecycleBeanPostProcessor();
-    }
+	@Bean
+	public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
+		DefaultAdvisorAutoProxyCreator proxyCreator = new DefaultAdvisorAutoProxyCreator();
+		proxyCreator.setProxyTargetClass(true);
+		return proxyCreator;
+	}
 
-    @Bean
-    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
-        DefaultAdvisorAutoProxyCreator proxyCreator = new DefaultAdvisorAutoProxyCreator();
-        proxyCreator.setProxyTargetClass(true);
-        return proxyCreator;
-    }
-
-    @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
-        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
-        advisor.setSecurityManager(securityManager);
-        return advisor;
-    }
+	@Bean
+	public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
+		AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
+		advisor.setSecurityManager(securityManager);
+		return advisor;
+	}
 }
