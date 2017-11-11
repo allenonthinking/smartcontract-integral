@@ -1,4 +1,7 @@
-package io.allen.modules.sys.shiro;
+package io.allen.config;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -12,8 +15,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import io.allen.modules.sys.shiro.RedisShiroSessionDAO;
+import io.allen.modules.sys.shiro.UserRealm;
 
 /**
  * Shiro的配置文件
