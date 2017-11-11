@@ -45,7 +45,9 @@
 	<!-- 查询系统用户 -->
 	
 	<select id="querySystemList" resultType="io.allen.modules.sys.entity.SysUserEntity">
-		select u.*, (select d.name from sys_dept d where d.dept_id = u.dept_id) deptName from sys_user u , sys_user_role ur ,sys_role r
+		select u.*, (select d.name from sys_dept d where d.dept_id = u.dept_id) deptName ,ba.address integralAddress  from sys_user_role ur ,sys_role r, sys_user u  
+		left join bc_user_admin bu on  u.user_id = bu.user_id 
+		left join bc_admin_account ba on bu.account_id = ba.account_id 
 		<where>
 			<if test="username != null and username.trim() != ''">
 				and u.`username` like concat('%',#{username},'%')

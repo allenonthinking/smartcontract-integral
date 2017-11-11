@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.allen.modules.generator.dao.BcUserAdminDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.allen.modules.generator.entity.BcUserAdminEntity" id="bcUserAdminMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="accountId" column="account_id"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.allen.modules.generator.entity.BcUserAdminEntity">
+		select * from bc_user_admin where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.allen.modules.generator.entity.BcUserAdminEntity">
+		select * from bc_user_admin
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from bc_user_admin 
+	</select>
+	 
+	<insert id="save" parameterType="io.allen.modules.generator.entity.BcUserAdminEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into bc_user_admin
+		(
+			`user_id`, 
+			`account_id`
+		)
+		values
+		(
+			#{userId}, 
+			#{accountId}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.allen.modules.generator.entity.BcUserAdminEntity">
+		update bc_user_admin 
+		<set>
+			<if test="userId != null">`user_id` = #{userId}, </if>
+			<if test="accountId != null">`account_id` = #{accountId}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from bc_user_admin where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from bc_user_admin where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

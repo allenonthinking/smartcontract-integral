@@ -6,6 +6,8 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.spongycastle.util.encoders.Hex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +18,14 @@ import io.allen.common.annotation.SysLog;
 import io.allen.common.utils.PageUtils;
 import io.allen.common.utils.Query;
 import io.allen.common.utils.R;
+import io.allen.crypto.ECKey;
+import io.allen.crypto.EthereumAccount;
+import io.allen.crypto.KeystoreFormat;
 import io.allen.modules.erc20.generated.CryptoUtils;
 import io.allen.modules.erc20.generated.IntegralConfig;
 import io.allen.modules.erc20.service.ContractService;
+import io.allen.modules.generator.entity.BcAdminAccountEntity;
+import io.allen.modules.generator.service.BcAdminAccountService;
 import io.allen.modules.sys.controller.AbstractController;
 import io.allen.modules.sys.entity.SysUserEntity;
 import io.allen.modules.sys.service.SysUserService;
@@ -43,6 +50,9 @@ public class IntegralManagerController extends AbstractController{
 	@Autowired
     private  ContractService contractService;
 	
+	@Autowired
+	private BcAdminAccountService bcAdminAccountService ;
+	
  	/**
 	 * 积分账户列表
 	 */
@@ -62,15 +72,41 @@ public class IntegralManagerController extends AbstractController{
 	 */
 	@SysLog("发放积分")
 	@RequestMapping("/savebalance")
-//	@RequiresPermissions("integral:manager:savebalance")
+	@RequiresPermissions("integral:manager:savebalance")
 	public R saveBalance(@RequestBody Map<String, String> params){
 		
+		BcAdminAccountEntity bcaccount = bcAdminAccountService.queryByUserId(getUserId());
+		
+		if(bcaccount == null){
+			return R.error("当前账户未授权区块链地址");
+		}
+		
+		String fromAddress = CryptoUtils.checkAddress(bcaccount.getAddress());
+		// 积分
+		BigInteger integral = new BigInteger(params.get("balance"));
+		
+		String password = params.get("password");
+		
+		String address = CryptoUtils.checkAddress(params.get("address"));
+		
+		String jytContractAddress = CryptoUtils.checkAddress(integralConfig.getContractAddress());
+		
+		ECKey key =null;
+        try {
+        	KeystoreFormat keystoreFormat = new KeystoreFormat();
+        	key =  keystoreFormat.fromKeystore(bcaccount.getKeystore(), password);
+	        EthereumAccount account = new EthereumAccount();
+	        account.init(key);
+	        fromAddress = CryptoUtils.checkAddress(Hex.toHexString(account.getAddress()));
+		} catch (Exception e) {
+			return R.error("keystore解密失败，可能密码错误");
+		}
+        
+       
+        String privateKey = Hex.toHexString(key.getPrivKeyBytes());
+		
 		try {
-			String privateKey = "41a6bc292a701c8da0529cafd8d339bb2ad5372d0695c5ba36be57530d4f4668";
 			
-			// 积分
-			BigInteger integral = new BigInteger(params.get("balance"));
-		  	String jytContractAddress = CryptoUtils.checkAddress(integralConfig.getContractAddress());
 		  	// 精度
 		  	BigInteger decimals = contractService.decimalsBigInteger(jytContractAddress);
 		  	BigDecimal decimalIntegral = new BigDecimal(integral);
@@ -78,8 +114,11 @@ public class IntegralManagerController extends AbstractController{
 		  	decimalIntegral = decimalIntegral.movePointRight(decimals.intValue());
 		  	
 		  	BigInteger balance = decimalIntegral.toBigInteger();
-			
-			String address = CryptoUtils.checkAddress(params.get("address"));
+		  	BigInteger owner = contractService.balanceOf(jytContractAddress, fromAddress);
+
+		  	if(balance.compareTo(owner) >=0){
+		  		return R.error("发放账户余额不足");
+		  	}
 //			TransactionResponse resp = contractService.transferKey(privateKey, integralConfig.getContractAddress(), address,balance);
 //			return R.ok().put("txid", resp.getTransactionHash());
 			contractService.transferKey(privateKey, integralConfig.getContractAddress(), address,balance);
