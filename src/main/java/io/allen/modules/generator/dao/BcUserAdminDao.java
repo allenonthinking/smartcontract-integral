@@ -1,8 +1,9 @@
 package io.allen.modules.generator.dao;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import io.allen.modules.generator.entity.BcUserAdminEntity;
 import io.allen.modules.sys.dao.BaseDao;
-import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 管理员用户与区块链账户对应关系
