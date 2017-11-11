@@ -1,33 +1,94 @@
 package io.allen.config;
 
-import com.google.code.kaptcha.impl.DefaultKaptcha;
-import com.google.code.kaptcha.util.Config;
+import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.mgt.SessionManager;
+import org.apache.shiro.spring.LifecycleBeanPostProcessor;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
+import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Properties;
+import io.allen.modules.sys.shiro.RedisShiroSessionDAO;
+import io.allen.modules.sys.shiro.UserRealm;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
- * 生成验证码配置
+ * Shiro的配置文件
  *
  * @author chenshun
  * @email sunlightcs@gmail.com
- * @date 2017-04-20 19:22
+ * @date 2017/9/27 22:02
  */
 @Configuration
-public class KaptchaConfig {
+public class ShiroConfig {
 
-    @Bean
-    public DefaultKaptcha producer() {
-        Properties properties = new Properties();
-        properties.put("kaptcha.border", "no");
-        properties.put("kaptcha.textproducer.font.color", "black");
-        properties.put("kaptcha.textproducer.char.space", "5");
-        properties.put("kaptcha.textproducer.char.length", "4");
-        Config config = new Config(properties);
-        DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
-        defaultKaptcha.setConfig(config);
-        return defaultKaptcha;
-    }
+	@Bean("sessionManager")
+	public SessionManager sessionManager(RedisShiroSessionDAO redisShiroSessionDAO,
+			@Value("${allen.redis.open}") boolean redisOpen, @Value("${allen.shiro.redis}") boolean shiroRedis) {
+		DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+		// 设置session过期时间为1小时(单位：毫秒)，默认为30分钟
+		sessionManager.setGlobalSessionTimeout(60 * 60 * 1000);
+		sessionManager.setSessionValidationSchedulerEnabled(true);
+		sessionManager.setSessionIdUrlRewritingEnabled(false);
+
+		// 如果开启redis缓存且allen.shiro.redis=true，则shiro session存到redis里
+		if (redisOpen && shiroRedis) {
+			sessionManager.setSessionDAO(redisShiroSessionDAO);
+		}
+		return sessionManager;
+	}
+
+	@Bean("securityManager")
+	public SecurityManager securityManager(UserRealm userRealm, SessionManager sessionManager) {
+		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+		securityManager.setRealm(userRealm);
+		securityManager.setSessionManager(sessionManager);
+
+		return securityManager;
+	}
+
+	@Bean("shiroFilter")
+	public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
+		ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
+		shiroFilter.setSecurityManager(securityManager);
+		shiroFilter.setLoginUrl("/login.html");
+		shiroFilter.setUnauthorizedUrl("/");
+
+		Map<String, String> filterMap = new LinkedHashMap<>();
+		filterMap.put("/statics/**", "anon");
+		filterMap.put("/swagger/**", "anon");
+		filterMap.put("/login.html", "anon");
+		filterMap.put("/sys/login", "anon");
+		filterMap.put("/favicon.ico", "anon");
+		filterMap.put("/captcha.jpg", "anon");
+		filterMap.put("/**", "authc");
+		shiroFilter.setFilterChainDefinitionMap(filterMap);
+
+		return shiroFilter;
+	}
+
+	@Bean("lifecycleBeanPostProcessor")
+	public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+		return new LifecycleBeanPostProcessor();
+	}
+
+	@Bean
+	public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
+		DefaultAdvisorAutoProxyCreator proxyCreator = new DefaultAdvisorAutoProxyCreator();
+		proxyCreator.setProxyTargetClass(true);
+		return proxyCreator;
+	}
+
+	@Bean
+	public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
+		AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
+		advisor.setSecurityManager(securityManager);
+		return advisor;
+	}
 }
