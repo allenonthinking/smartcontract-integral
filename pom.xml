@@ -39,7 +39,7 @@
 		<ethereumj-version>1.5.0-RELEASE</ethereumj-version>
 
 		<!--wagon plugin 配置-->
-		<service-path>/work/renren</service-path>
+		<service-path>/work/allen</service-path>
 		<pack-name>${project.artifactId}.jar</pack-name>
 		<remote-addr>192.168.1.10:22</remote-addr>
 		<remote-username>root</remote-username>
@@ -239,8 +239,8 @@
 					<url><![CDATA[scp://${remote-username}:${remote-passwd}@${remote-addr}${service-path}]]></url>
 					<commands>
 						<command>pkill -f ${pack-name}</command>
-						<command>rm -f ${service-path}/renren.log</command>
-						<command><![CDATA[nohup java -jar ${service-path}/${pack-name} > ${service-path}/renren.log 2>&1 & ]]></command>
+						<command>rm -f ${service-path}/allen.log</command>
+						<command><![CDATA[nohup java -jar ${service-path}/${pack-name} > ${service-path}/allen.log 2>&1 & ]]></command>
 						<command><![CDATA[netstat -nptl]]></command>
 						<command><![CDATA[ps -ef | grep java | grep -v grep]]></command>
 					</commands>
@@ -261,7 +261,7 @@
 				<!--</execution>-->
 				<!--</executions>-->
 				<configuration>
-					<imageName>renren/security</imageName>
+					<imageName>allen/integral</imageName>
 					<dockerDirectory>${project.basedir}</dockerDirectory>
 					<resources>
 						<resource>
