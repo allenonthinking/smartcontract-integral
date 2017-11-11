@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  description: 权限管理系统
+  description: 积分管理系统
   version: 3.0.0
   title: Allen
 
