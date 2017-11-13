@@ -1,5 +1,8 @@
 package io.allen.modules.generator.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import io.allen.modules.generator.entity.BcTransactionEntity;
 import io.allen.modules.sys.dao.BaseDao;
 
@@ -11,4 +14,9 @@ import io.allen.modules.sys.dao.BaseDao;
  */
 public interface BcTransactionDao extends BaseDao<BcTransactionEntity> {
 	
+	List<BcTransactionEntity> queryNotProcessed(Map<String, Object> map);
+	
+	int queryNotProcessedTotal(); 
+	
+	int updateStatus(BcTransactionEntity bcTransactionEntity);
 }
