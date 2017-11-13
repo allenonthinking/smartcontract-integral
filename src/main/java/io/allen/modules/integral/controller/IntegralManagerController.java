@@ -24,6 +24,7 @@ import io.allen.crypto.EthereumAccount;
 import io.allen.crypto.KeystoreFormat;
 import io.allen.modules.erc20.generated.CryptoUtils;
 import io.allen.modules.erc20.generated.IntegralConfig;
+import io.allen.modules.erc20.generated.TransactionResponse;
 import io.allen.modules.erc20.service.ContractService;
 import io.allen.modules.generator.entity.BcAdminAccountEntity;
 import io.allen.modules.generator.service.BcAdminAccountService;
@@ -149,10 +150,10 @@ public class IntegralManagerController extends AbstractController{
 		  	if(balance.compareTo(owner) >=0){
 		  		return R.error("发放账户余额不足");
 		  	}
-//			TransactionResponse resp = contractService.transferKey(privateKey, integralConfig.getContractAddress(), address,balance);
-//			return R.ok().put("txid", resp.getTransactionHash());
-			contractService.transferKey(privateKey, integralConfig.getContractAddress(), address,balance);
-			return R.ok();
+			TransactionResponse resp = contractService.transferKey(privateKey, integralConfig.getContractAddress(), address,balance);
+			return R.ok().put("txid", resp.getTransactionHash());
+//			contractService.transferKey(privateKey, integralConfig.getContractAddress(), address,balance);
+//			return R.ok();
 		} catch (Exception e) {
 			return R.error(e.getMessage());
 		}
