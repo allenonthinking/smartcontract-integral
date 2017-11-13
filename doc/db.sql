@@ -186,6 +186,21 @@ CREATE TABLE `bc_user_admin` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='管理员用户与区块链账户对应关系';
 
+-- 交易表
+CREATE TABLE `bc_transaction`(
+	`id` bigint NOT NULL AUTO_INCREMENT,
+	`tx_id` varchar(200) COMMENT '交易ID',
+	`status` tinyint  DEFAULT 0 COMMENT '状态  0:未知  1:pending 2:sucess 3:fail',
+	`from_address` varchar(200) COMMENT '发起人地址',
+	`to_address`   varchar(200) COMMENT '接收人地址',
+	`contract_address`   varchar(200) COMMENT '合约地址',
+	`data`	varchar(4096) 	COMMENT '数据',
+	`amount` varchar(200)  COMMENT  '金额',
+	`decimals` bigint	   COMMENT  '精度',
+	`value`	varchar(200)   COMMENT  '真正转账金额',
+	`type` int COMMENT '类型   1：普通转账   2：积分转账',
+  	 PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='交易表';
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- 代码生成器相关SQL，如果不使用allen-gen模块，则不用执行下面SQL -------------------------------------------------------------------------------------------------------------

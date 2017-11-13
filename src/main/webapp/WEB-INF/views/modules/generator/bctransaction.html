@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>交易表</title>
+<#include "/header.html">
+</head>
+<body>
+<div id="rrapp" v-cloak>
+	<div v-show="showList">
+<!-- 		<div class="grid-btn">
+			<#if shiro.hasPermission("bctransaction:save")>
+            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			</#if>
+			<#if shiro.hasPermission("bctransaction:update")>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			</#if>
+			<#if shiro.hasPermission("bctransaction:delete")>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			</#if>
+		</div> -->
+	    <table id="jqGrid"></table>
+	    <div id="jqGridPager"></div>
+    </div>
+    
+    <div v-show="!showList" class="panel panel-default">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal">
+											<div class="form-group">
+			   	<div class="col-sm-2 control-label">交易ID</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="bcTransaction.txId" placeholder="交易ID"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">状态  0:未知  1:pending 2:sucess 3:fail</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="bcTransaction.status" placeholder="状态  0:未知  1:pending 2:sucess 3:fail"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">发起人地址</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="bcTransaction.fromAddress" placeholder="发起人地址"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">接收人地址</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="bcTransaction.toAddress" placeholder="接收人地址"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">合约地址</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="bcTransaction.contractAddress" placeholder="合约地址"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">数据</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="bcTransaction.data" placeholder="数据"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">金额</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="bcTransaction.amount" placeholder="金额"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">精度</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="bcTransaction.decimals" placeholder="精度"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">真正转账金额</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="bcTransaction.value" placeholder="真正转账金额"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">类型   1：普通转账   2：积分转账</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="bcTransaction.type" placeholder="类型   1：普通转账   2：积分转账"/>
+			    </div>
+			</div>
+							<div class="form-group">
+				<div class="col-sm-2 control-label"></div> 
+				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/generator/bctransaction.js?_${.now?long}"></script>
+</body>
+</html>

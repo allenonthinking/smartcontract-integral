@@ -1,7 +1,5 @@
 package io.allen.modules.generator.dao;
 
-import org.apache.ibatis.annotations.Mapper;
-
 import io.allen.modules.generator.entity.BcUserAdminEntity;
 import io.allen.modules.sys.dao.BaseDao;
 
@@ -11,7 +9,6 @@ import io.allen.modules.sys.dao.BaseDao;
  * @author allen.liu
  * @date 2017-11-11 13:16:36
  */
-@Mapper
 public interface BcUserAdminDao extends BaseDao<BcUserAdminEntity> {
 	
 }
