@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @author allen.liu
  * @date 2017-11-11 13:16:36
  */
+@Mapper
 public interface BcUserAdminDao extends BaseDao<BcUserAdminEntity> {
 	
 }
