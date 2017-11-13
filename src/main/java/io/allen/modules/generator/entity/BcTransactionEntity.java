@@ -18,7 +18,7 @@ public class BcTransactionEntity implements Serializable {
 	private Long id;
 	//交易ID
 	private String txId;
-	//状态  0:未知  1:pending 2:sucess 3:fail
+	//状态  状态  -1:失败 0:未知  1-12:确认数量  >=12 确认成功
 	private Integer status;
 	//发起人地址
 	private String fromAddress;
@@ -62,13 +62,13 @@ public class BcTransactionEntity implements Serializable {
 		return txId;
 	}
 	/**
-	 * 设置：状态  0:未知  1:pending 2:sucess 3:fail
+	 * 设置：状态  -1:失败 0:未知  1-12:确认数量  >=12 确认成功
 	 */
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
 	/**
-	 * 获取：状态  0:未知  1:pending 2:sucess 3:fail
+	 * 获取：状态  -1:失败 0:未知  1-12:确认数量  >=12 确认成功
 	 */
 	public Integer getStatus() {
 		return status;

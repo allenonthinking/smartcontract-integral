@@ -9,12 +9,16 @@ $(function () {
 				if(row.status === 0){
 					return '<span class="btn btn-small btn-warning">未知</span>';
 				}				
-				if(row.status === 1){
-					return '<span class="btn btn-small btn-warning">成功</span>';
+				if(row.status === -1){
+					return '<span class="btn btn-small btn-warning">失败</span>';
 				}
 				
-				if(row.status === 2){
-					return '<span class="btn btn-small btn-warning">失败</span>';
+				if(row.status < 12 && row.status >0 ){
+					return '<span class="btn btn-small btn-warning">'+row.status+'/12</span>';
+				}
+				
+				if(row.status >= 12 ){
+					return '<span class="btn btn-small btn-warning">成功</span>';
 				}
 			}}, 			
 			{ label: '发起人地址', name: 'fromAddress', index: 'from_address', width: 80 }, 			

@@ -18,6 +18,26 @@
         <result property="type" column="type"/>
     </resultMap>
 
+	<select id="queryNotProcessed" resultType="io.allen.modules.generator.entity.BcTransactionEntity">
+		select * from bc_transaction where (status &gt;= 0 and status  &lt; 12)  
+		<choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+
+ 	<select id="queryNotProcessedTotal" resultType="int">
+		select count(*) from bc_transaction  where (status &lt;= 0 and status &gt; 12) 
+	</select>
+		
+	
 	<select id="queryObject" resultType="io.allen.modules.generator.entity.BcTransactionEntity">
 		select * from bc_transaction where id = #{value}
 	</select>
@@ -85,6 +105,11 @@
 			<if test="type != null">`type` = #{type}</if>
 		</set>
 		where id = #{id}
+	</update>
+	
+	<update id="updateStatus" parameterType="io.allen.modules.generator.entity.BcTransactionEntity">
+		update bc_transaction set `status` = #{status} 
+			 where id = #{id}
 	</update>
 	
 	<delete id="delete">

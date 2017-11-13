@@ -53,5 +53,15 @@ public class BcTransactionServiceImpl implements BcTransactionService {
 	public void deleteBatch(Long[] ids){
 		bcTransactionDao.deleteBatch(ids);
 	}
+
+	@Override
+	public List<BcTransactionEntity> queryNotProcessed(Map<String, Object> map) {
+		return bcTransactionDao.queryNotProcessed(map);
+	}
+
+	@Override
+	public void updateStatus(BcTransactionEntity bcTransaction) {
+		bcTransactionDao.updateStatus(bcTransaction);
+	}
 	
 }

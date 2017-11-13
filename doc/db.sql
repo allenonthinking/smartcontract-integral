@@ -190,7 +190,7 @@ CREATE TABLE `bc_user_admin` (
 CREATE TABLE `bc_transaction`(
 	`id` bigint NOT NULL AUTO_INCREMENT,
 	`tx_id` varchar(200) COMMENT '交易ID',
-	`status` tinyint  DEFAULT 0 COMMENT '状态  0:未知  1:pending 2:sucess 3:fail',
+	`status` tinyint  DEFAULT 0 COMMENT '状态  -1:失败 0:未知  1-12:确认数量  >=12 确认成功 ',
 	`from_address` varchar(200) COMMENT '发起人地址',
 	`to_address`   varchar(200) COMMENT '接收人地址',
 	`contract_address`   varchar(200) COMMENT '合约地址',
@@ -275,6 +275,7 @@ CREATE TABLE `schedule_job_log` (
 
 INSERT INTO `schedule_job` (`bean_name`, `method_name`, `params`, `cron_expression`, `status`, `remark`, `create_time`) VALUES ('testTask', 'test', 'allen', '0 0/30 * * * ?', '0', '有参数测试', '2016-12-01 23:16:46');
 INSERT INTO `schedule_job` (`bean_name`, `method_name`, `params`, `cron_expression`, `status`, `remark`, `create_time`) VALUES ('testTask', 'test2', NULL, '0 0/30 * * * ?', '1', '无参数测试', '2016-12-03 14:55:56');
+INSERT INTO `schedule_job` (`bean_name`, `method_name`, `params`, `cron_expression`, `status`, `remark`, `create_time`) VALUES ('txStatusCheckTask', 'check', NULL, '0 0/5 * * * ?', '1', '交易状态检查', '2017-11-13 14:55:56');
 
 
 --  quartz自带表结构
