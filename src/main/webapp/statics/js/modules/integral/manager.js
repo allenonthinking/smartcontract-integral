@@ -96,13 +96,13 @@ var vm = new Vue({
 	                data: JSON.stringify(vm.integralObject),
 	                success: function(r){
 	                    if(r.code === 0){
-//	                        alert('记录交易ID:'+r.msg, function(){
-//	                            vm.reload();
-//	                        });
+	                        alert('记录交易ID:'+r.txid, function(){
+	                            vm.reload();
+	                        });
 	                    }else{
 	                        alert(r.msg);
 	                    }
-	                    vm.reload();
+//	                    vm.reload();
 	                }
 	            });	        	
 	        },

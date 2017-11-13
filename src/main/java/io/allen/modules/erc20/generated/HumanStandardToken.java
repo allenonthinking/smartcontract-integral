@@ -1,5 +1,6 @@
 package io.allen.modules.erc20.generated;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +25,7 @@ import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.request.EthFilter;
 import org.web3j.protocol.core.methods.response.Log;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
+import org.web3j.protocol.exceptions.TransactionTimeoutException;
 import org.web3j.tx.Contract;
 import org.web3j.tx.TransactionManager;
 import rx.Observable;
@@ -174,6 +176,11 @@ public final class HumanStandardToken extends Contract {
         return executeTransactionAsync(function);
     }
 
+    public TransactionReceipt transferNoWait(Address _to, Uint256 _value) throws InterruptedException, IOException, TransactionTimeoutException {
+        Function function = new Function("transfer", Arrays.<Type>asList(_to, _value), Collections.<TypeReference<?>>emptyList());
+        return executeTransaction(function);
+    }
+    
     public Future<TransactionReceipt> dispense(Address _addr, Uint256 _value) {
         Function function = new Function("dispense", Arrays.<Type>asList(_addr, _value), Collections.<TypeReference<?>>emptyList());
         return executeTransactionAsync(function);

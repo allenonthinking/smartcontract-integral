@@ -1,5 +1,6 @@
 package io.allen.modules.erc20.service;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -25,6 +26,7 @@ import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
+import org.web3j.protocol.exceptions.TransactionTimeoutException;
 import org.web3j.tx.ClientTransactionManager;
 import org.web3j.tx.RawTransactionManager;
 import org.web3j.tx.TransactionManager;
@@ -87,10 +89,9 @@ public class ContractService {
 			BigInteger value) {
 		HumanStandardToken humanStandardToken = loadKey(contractAddress, privateKey);
 		try {
-			TransactionReceipt transactionReceipt = humanStandardToken.transfer(new Address(to), new Uint256(value))
-					.get();
+			TransactionReceipt transactionReceipt = humanStandardToken.transferNoWait(new Address(to), new Uint256(value));
 			return new TransactionResponse<>(transactionReceipt.getTransactionHash());
-		} catch (InterruptedException | ExecutionException e) {
+		} catch (InterruptedException  |IOException  |TransactionTimeoutException e) {
 			throw new RuntimeException(e);
 		}
 	}
