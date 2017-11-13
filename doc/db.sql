@@ -147,6 +147,8 @@ INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, 
 
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('46', '43', '积分发放', NULL, 'integral:manager:savebalance', '2', NULL, '0');
 
+INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('47', '37', '积分详情', 'modules/integral/integralinfo.html',NULL, '1', 'fa fa-file-text-o', '0');
+
 
 
 -- 积分表
