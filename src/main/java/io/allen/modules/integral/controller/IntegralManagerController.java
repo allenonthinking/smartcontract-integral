@@ -27,7 +27,9 @@ import io.allen.modules.erc20.generated.IntegralConfig;
 import io.allen.modules.erc20.generated.TransactionResponse;
 import io.allen.modules.erc20.service.ContractService;
 import io.allen.modules.generator.entity.BcAdminAccountEntity;
+import io.allen.modules.generator.entity.BcTransactionEntity;
 import io.allen.modules.generator.service.BcAdminAccountService;
+import io.allen.modules.generator.service.BcTransactionService;
 import io.allen.modules.sys.controller.AbstractController;
 import io.allen.modules.sys.entity.SysUserEntity;
 import io.allen.modules.sys.service.SysUserService;
@@ -54,6 +56,9 @@ public class IntegralManagerController extends AbstractController{
 	
 	@Autowired
 	private BcAdminAccountService bcAdminAccountService ;
+	
+	@Autowired
+	private BcTransactionService bcTransactionService;
 	
  	/**
 	 * 积分账户列表
@@ -151,7 +156,19 @@ public class IntegralManagerController extends AbstractController{
 		  		return R.error("发放账户余额不足");
 		  	}
 			TransactionResponse resp = contractService.transferKey(privateKey, integralConfig.getContractAddress(), address,balance);
-			return R.ok().put("txid", resp.getTransactionHash());
+			String txId = resp.getTransactionHash();
+			 BcTransactionEntity bcTransaction = new BcTransactionEntity();
+			 bcTransaction.setTxId(txId);
+			 bcTransaction.setStatus(0);
+			 bcTransaction.setFromAddress(fromAddress);
+			 bcTransaction.setContractAddress(jytContractAddress);
+			 bcTransaction.setToAddress(address);
+			 bcTransaction.setAmount(integral.toString());
+			 bcTransaction.setValue(balance.toString());
+			 bcTransaction.setDecimals(decimals.longValue());
+			 bcTransaction.setType(2);
+			 bcTransactionService.save(bcTransaction);
+			return R.ok().put("txid", txId);
 //			contractService.transferKey(privateKey, integralConfig.getContractAddress(), address,balance);
 //			return R.ok();
 		} catch (Exception e) {

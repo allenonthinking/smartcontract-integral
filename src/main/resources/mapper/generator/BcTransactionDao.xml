@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.allen.modules.generator.dao.BcTransactionDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.allen.modules.generator.entity.BcTransactionEntity" id="bcTransactionMap">
+        <result property="id" column="id"/>
+        <result property="txId" column="tx_id"/>
+        <result property="status" column="status"/>
+        <result property="fromAddress" column="from_address"/>
+        <result property="toAddress" column="to_address"/>
+        <result property="contractAddress" column="contract_address"/>
+        <result property="data" column="data"/>
+        <result property="amount" column="amount"/>
+        <result property="decimals" column="decimals"/>
+        <result property="value" column="value"/>
+        <result property="type" column="type"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.allen.modules.generator.entity.BcTransactionEntity">
+		select * from bc_transaction where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.allen.modules.generator.entity.BcTransactionEntity">
+		select * from bc_transaction
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from bc_transaction 
+	</select>
+	 
+	<insert id="save" parameterType="io.allen.modules.generator.entity.BcTransactionEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into bc_transaction
+		(
+			`tx_id`, 
+			`status`, 
+			`from_address`, 
+			`to_address`, 
+			`contract_address`, 
+			`data`, 
+			`amount`, 
+			`decimals`, 
+			`value`, 
+			`type`
+		)
+		values
+		(
+			#{txId}, 
+			#{status}, 
+			#{fromAddress}, 
+			#{toAddress}, 
+			#{contractAddress}, 
+			#{data}, 
+			#{amount}, 
+			#{decimals}, 
+			#{value}, 
+			#{type}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.allen.modules.generator.entity.BcTransactionEntity">
+		update bc_transaction 
+		<set>
+			<if test="txId != null">`tx_id` = #{txId}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="fromAddress != null">`from_address` = #{fromAddress}, </if>
+			<if test="toAddress != null">`to_address` = #{toAddress}, </if>
+			<if test="contractAddress != null">`contract_address` = #{contractAddress}, </if>
+			<if test="data != null">`data` = #{data}, </if>
+			<if test="amount != null">`amount` = #{amount}, </if>
+			<if test="decimals != null">`decimals` = #{decimals}, </if>
+			<if test="value != null">`value` = #{value}, </if>
+			<if test="type != null">`type` = #{type}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from bc_transaction where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from bc_transaction where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
