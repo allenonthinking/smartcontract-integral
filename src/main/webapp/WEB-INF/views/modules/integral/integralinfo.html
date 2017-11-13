@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>个人积分</title>
+<#include "/layheader.html">
+</head>
+<body>
+<div id="rrapp" v-cloak>
+	<div v-show="showInfo">
+		<div class="sysNotice col">
+				<blockquote class="layui-elem-quote title">{{title}}</blockquote>
+				<table class="layui-table">
+					<colgroup>
+						<col width="150">
+						<col>
+					</colgroup>
+					<tbody>
+						<tr>
+							<td>积分地址</td>
+							<td>{{integralinfo.address}}</td>
+						</tr>
+						<tr>
+							<td>积分名</td>
+							<td>{{integralinfo.name}}</td>
+						</tr>
+						<tr>
+							<td>简称</td>
+							<td>{{integralinfo.symbol}}</td>
+						</tr>
+						<tr>
+							<td>总量</td>
+							<td>{{integralinfo.total}}</td>
+						</tr>
+					</tbody>
+				</table>
+		</div>
+	</div>
+</div>
+<script src="${request.contextPath}/statics/js/modules/integral/integralinfo.js?_${.now?long}"></script>
+</body>
+</html>

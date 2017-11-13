@@ -3,6 +3,7 @@ package io.allen.modules.integral.controller;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -66,7 +67,36 @@ public class IntegralManagerController extends AbstractController{
 		PageUtils pageUtil = new PageUtils(userList, total, query.getLimit(), query.getPage());
 		return R.ok().put("page", pageUtil);
 	}
-	
+ 	/**
+	 * 积分详细信息
+	 */
+	@RequestMapping("/integralinfo")
+	public R integralinfo(){
+		String jytContractAddress = CryptoUtils.checkAddress(integralConfig.getContractAddress());
+		// 积分
+		BigInteger total = contractService.totalSupply(jytContractAddress);
+		// 精度
+		BigInteger decimals = contractService.decimalsBigInteger(jytContractAddress);
+		
+		BigDecimal decimalIntegral = new BigDecimal(total);
+		// 小数点左移
+		decimalIntegral = decimalIntegral.movePointLeft(decimals.intValue());
+		
+		// 保留小数点后俩位
+		double totalintegralBalance = decimalIntegral.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+		
+		String name = contractService.name(jytContractAddress);
+		String symbol = contractService.symbol(jytContractAddress);
+		
+		Map<String, String> result = new HashMap<String,String>();
+		
+		result.put("name", name);
+		result.put("symbol", symbol);
+		result.put("address", jytContractAddress);
+		result.put("total", totalintegralBalance+"");
+		
+		return R.ok().put("integralInfo", result);
+	}
 	/**
 	 * 发放积分
 	 */
