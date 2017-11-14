@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="io.allen.modules.generator.dao.BcDefualtAccountDao">
+<mapper namespace="io.allen.modules.generator.dao.BcDefaultAccountDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="io.allen.modules.generator.entity.BcDefualtAccountEntity" id="bcDefualtAccountMap">
+    <resultMap type="io.allen.modules.generator.entity.BcDefaultAccountEntity" id="bcDefaultAccountMap">
         <result property="accountId" column="account_id"/>
         <result property="accountName" column="account_name"/>
         <result property="password" column="password"/>
@@ -16,12 +16,16 @@
         <result property="createTime" column="create_time"/>
     </resultMap>
 
-	<select id="queryObject" resultType="io.allen.modules.generator.entity.BcDefualtAccountEntity">
-		select * from bc_defualt_account where account_id = #{value}
+	<select id="queryObject" resultType="io.allen.modules.generator.entity.BcDefaultAccountEntity">
+		select * from bc_default_account where account_id = #{value}
 	</select>
 
-	<select id="queryList" resultType="io.allen.modules.generator.entity.BcDefualtAccountEntity">
-		select * from bc_defualt_account
+	<select id="queryAccountByStatusAndType" resultType="io.allen.modules.generator.entity.BcDefaultAccountEntity" parameterType="map">
+		select * from bc_default_account where `status` = #{status} where `type` = #{type} 
+	</select>
+	
+	<select id="queryList" resultType="io.allen.modules.generator.entity.BcDefaultAccountEntity">
+		select * from bc_default_account
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -36,11 +40,11 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from bc_defualt_account 
+		select count(*) from bc_default_account 
 	</select>
 	 
-	<insert id="save" parameterType="io.allen.modules.generator.entity.BcDefualtAccountEntity" useGeneratedKeys="true" keyProperty="accountId">
-		insert into bc_defualt_account
+	<insert id="save" parameterType="io.allen.modules.generator.entity.BcDefaultAccountEntity" useGeneratedKeys="true" keyProperty="accountId">
+		insert into bc_default_account
 		(
 			`account_name`, 
 			`password`, 
@@ -64,8 +68,8 @@
 		)
 	</insert>
 	 
-	<update id="update" parameterType="io.allen.modules.generator.entity.BcDefualtAccountEntity">
-		update bc_defualt_account 
+	<update id="update" parameterType="io.allen.modules.generator.entity.BcDefaultAccountEntity">
+		update bc_default_account 
 		<set>
 			<if test="accountName != null">`account_name` = #{accountName}, </if>
 			<if test="password != null">`password` = #{password}, </if>
@@ -80,11 +84,11 @@
 	</update>
 	
 	<delete id="delete">
-		delete from bc_defualt_account where account_id = #{value}
+		delete from bc_default_account where account_id = #{value}
 	</delete>
 	
 	<delete id="deleteBatch">
-		delete from bc_defualt_account where account_id in 
+		delete from bc_default_account where account_id in 
 		<foreach item="accountId" collection="array" open="(" separator="," close=")">
 			#{accountId}
 		</foreach>

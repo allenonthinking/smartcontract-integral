@@ -204,7 +204,7 @@ CREATE TABLE `bc_transaction`(
 
 
 -- 默认区块链账户表
-CREATE TABLE `bc_defualt_account` (
+CREATE TABLE `bc_default_account` (
   `account_id` bigint NOT NULL AUTO_INCREMENT,
   `account_name` varchar(100) COMMENT '账户名',
   `password` varchar(100) COMMENT '密码',

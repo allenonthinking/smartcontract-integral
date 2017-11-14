@@ -16,7 +16,7 @@ import io.allen.common.validator.group.UpdateGroup;
  * @author allen.liu
  * @date 2017-11-14 09:36:52
  */
-public class BcDefualtAccountEntity implements Serializable {
+public class BcDefaultAccountEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//

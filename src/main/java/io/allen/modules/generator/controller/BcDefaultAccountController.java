@@ -24,8 +24,8 @@ import io.allen.common.validator.group.AddGroup;
 import io.allen.crypto.ECKey;
 import io.allen.crypto.EthereumAccount;
 import io.allen.crypto.KeystoreFormat;
-import io.allen.modules.generator.entity.BcDefualtAccountEntity;
-import io.allen.modules.generator.service.BcDefualtAccountService;
+import io.allen.modules.generator.entity.BcDefaultAccountEntity;
+import io.allen.modules.generator.service.BcDefaultAccountService;
 import io.allen.modules.sys.shiro.ShiroUtils;
 
 
@@ -36,24 +36,24 @@ import io.allen.modules.sys.shiro.ShiroUtils;
  * @date 2017-11-14 09:36:52
  */
 @RestController
-@RequestMapping("bcdefualtaccount")
-public class BcDefualtAccountController {
+@RequestMapping("bcdefaultaccount")
+public class BcDefaultAccountController {
 	@Autowired
-	private BcDefualtAccountService bcDefualtAccountService;
+	private BcDefaultAccountService bcDefaultAccountService;
 	
 	/**
 	 * 列表
 	 */
 	@RequestMapping("/list")
-	@RequiresPermissions("bcdefualtaccount:list")
+	@RequiresPermissions("bcdefaultaccount:list")
 	public R list(@RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
 
-		List<BcDefualtAccountEntity> bcDefualtAccountList = bcDefualtAccountService.queryList(query);
-		int total = bcDefualtAccountService.queryTotal(query);
+		List<BcDefaultAccountEntity> bcDefaultAccountList = bcDefaultAccountService.queryList(query);
+		int total = bcDefaultAccountService.queryTotal(query);
 		
-		PageUtils pageUtil = new PageUtils(bcDefualtAccountList, total, query.getLimit(), query.getPage());
+		PageUtils pageUtil = new PageUtils(bcDefaultAccountList, total, query.getLimit(), query.getPage());
 		
 		return R.ok().put("page", pageUtil);
 	}
@@ -63,11 +63,11 @@ public class BcDefualtAccountController {
 	 * 信息
 	 */
 	@RequestMapping("/info/{accountId}")
-	@RequiresPermissions("bcdefualtaccount:info")
+	@RequiresPermissions("bcdefaultaccount:info")
 	public R info(@PathVariable("accountId") Long accountId){
-		BcDefualtAccountEntity bcDefualtAccount = bcDefualtAccountService.queryObject(accountId);
+		BcDefaultAccountEntity bcDefaultAccount = bcDefaultAccountService.queryObject(accountId);
 		
-		return R.ok().put("bcDefualtAccount", bcDefualtAccount);
+		return R.ok().put("bcDefaultAccount", bcDefaultAccount);
 	}
 	
 	/**
@@ -75,9 +75,9 @@ public class BcDefualtAccountController {
 	 */
 	@SysLog("保存默认区块链账户")
 	@RequestMapping("/save")
-	@RequiresPermissions("bcdefualtaccount:save")
-	public R save(@RequestBody BcDefualtAccountEntity bcDefualtAccount){
-		ValidatorUtils.validateEntity(bcDefualtAccount, AddGroup.class);
+	@RequiresPermissions("bcdefaultaccount:save")
+	public R save(@RequestBody BcDefaultAccountEntity bcDefaultAccount){
+		ValidatorUtils.validateEntity(bcDefaultAccount, AddGroup.class);
 		/**
 		 * 检验私钥
 		 */
@@ -85,7 +85,7 @@ public class BcDefualtAccountController {
         String content = null;
         String address = null;
 		try {
-			key = ECKey.fromPrivate(new BigInteger(bcDefualtAccount.getPrivateKey(), 16));
+			key = ECKey.fromPrivate(new BigInteger(bcDefaultAccount.getPrivateKey(), 16));
 		} catch (Exception e) {
 			return R.error("私钥格式错误");
 		}
@@ -100,21 +100,21 @@ public class BcDefualtAccountController {
 		String salt = RandomStringUtils.randomAlphanumeric(20);
 		
 		
-		String realPassword= ShiroUtils.sha256(bcDefualtAccount.getPassword(), salt);
+		String realPassword= ShiroUtils.sha256(bcDefaultAccount.getPassword(), salt);
 		
 		KeystoreFormat keystoreFormat = new KeystoreFormat();
 		content = keystoreFormat.toKeystore(key, realPassword);
 		address = Hex.toHexString((account.getAddress()));
 		
 		
-		bcDefualtAccount.setSalt(salt);
-		bcDefualtAccount.setCreateTime(new Date());
-		bcDefualtAccount.setAddress(address);
-		bcDefualtAccount.setKeystore(content);
-		bcDefualtAccount.setPassword(realPassword);
-		bcDefualtAccount.setPrivateKey("");
+		bcDefaultAccount.setSalt(salt);
+		bcDefaultAccount.setCreateTime(new Date());
+		bcDefaultAccount.setAddress(address);
+		bcDefaultAccount.setKeystore(content);
+		bcDefaultAccount.setPassword(realPassword);
+		bcDefaultAccount.setPrivateKey("");
 		
-		bcDefualtAccountService.save(bcDefualtAccount);
+		bcDefaultAccountService.save(bcDefaultAccount);
 		
 		return R.ok();
 	}
@@ -124,9 +124,9 @@ public class BcDefualtAccountController {
 	 */
 	@SysLog("修改默认区块链账户")
 	@RequestMapping("/update")
-	@RequiresPermissions("bcdefualtaccount:update")
-	public R update(@RequestBody BcDefualtAccountEntity bcDefualtAccount){
-		bcDefualtAccountService.update(bcDefualtAccount);
+	@RequiresPermissions("bcdefaultaccount:update")
+	public R update(@RequestBody BcDefaultAccountEntity bcDefaultAccount){
+		bcDefaultAccountService.update(bcDefaultAccount);
 		
 		return R.ok();
 	}
@@ -136,9 +136,9 @@ public class BcDefualtAccountController {
 	 */
 	@SysLog("删除默认区块链账户")
 	@RequestMapping("/delete")
-	@RequiresPermissions("bcdefualtaccount:delete")
+	@RequiresPermissions("bcdefaultaccount:delete")
 	public R delete(@RequestBody Long[] accountIds){
-		bcDefualtAccountService.deleteBatch(accountIds);
+		bcDefaultAccountService.deleteBatch(accountIds);
 		
 		return R.ok();
 	}

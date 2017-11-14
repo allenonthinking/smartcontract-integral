@@ -8,13 +8,13 @@
 	<div id="rrapp" v-cloak>
 		<div v-show="showList">
 			<div class="grid-btn">
-				<#if shiro.hasPermission("bcdefualtaccount:save")> <a
+				<#if shiro.hasPermission("bcdefaultaccount:save")> <a
 					class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
 				</#if>
-				<#if shiro.hasPermission("bcdefualtaccount:update")> <a
+				<#if shiro.hasPermission("bcdefaultaccount:update")> <a
 					class="btn btn-primary" @click="update"><i
 					class="fa fa-pencil-square-o"></i>&nbsp;修改</a> </#if>
-				<#if shiro.hasPermission("bcdefualtaccount:delete")> <a
+				<#if shiro.hasPermission("bcdefaultaccount:delete")> <a
 					class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
 				</#if>
 			</div>
@@ -29,51 +29,51 @@
 					<div class="col-sm-2 control-label">账户名</div>
 					<div class="col-sm-10">
 						<input type="text" class="form-control"
-							v-model="bcDefualtAccount.accountName" placeholder="账户名" />
+							v-model="bcDefaultAccount.accountName" placeholder="账户名" />
 					</div>
 				</div>
 				<div v-if="!updateflag" class="form-group">
 					<div class="col-sm-2 control-label">密码</div>
 					<div class="col-sm-10">
 						<input type="text" class="form-control"
-							v-model="bcDefualtAccount.password" placeholder="密码" />
+							v-model="bcDefaultAccount.password" placeholder="密码" />
 					</div>
 				</div>
 				<div v-if="!updateflag" class="form-group">
 					<div class="col-sm-2 control-label">私钥</div>
 					<div class="col-sm-10">
 						<input type="text" class="form-control"
-							v-model="bcDefualtAccount.privateKey" placeholder="私钥" />
+							v-model="bcDefaultAccount.privateKey" placeholder="私钥" />
 					</div>
 				</div>				
 				<div  v-if="updateflag" class="form-group">
 					<div class="col-sm-2 control-label">账户地址</div>
 					<div class="col-sm-10">
 						<input type="text" class="form-control"
-							v-model="bcDefualtAccount.address" readonly="readonly" placeholder="账户地址" />
+							v-model="bcDefaultAccount.address" readonly="readonly" placeholder="账户地址" />
 					</div>
 				</div>
 				<div v-if="updateflag" class="form-group">
 					<div class="col-sm-2 control-label">keystore</div>
 					<div class="col-sm-10">
 						<input type="text" class="form-control"
-							v-model="bcDefualtAccount.keystore" readonly="readonly" placeholder="keystore" />
+							v-model="bcDefaultAccount.keystore" readonly="readonly" placeholder="keystore" />
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-2 control-label">状态</div>
 					<label class="radio-inline"> <input type="radio"
-						name="status" value="0" v-model="bcDefualtAccount.status" /> 禁用
+						name="status" value="0" v-model="bcDefaultAccount.status" /> 禁用
 					</label> <label class="radio-inline"> <input type="radio"
-						name="status" value="1" v-model="bcDefualtAccount.status" /> 正常
+						name="status" value="1" v-model="bcDefaultAccount.status" /> 正常
 					</label>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-2 control-label">状态</div>
 					<label class="radio-inline"> <input type="radio"
-						name="type" value="1" v-model="bcDefualtAccount.type" /> 基础发放
+						name="type" value="1" v-model="bcDefaultAccount.type" /> 基础发放
 					</label> <label class="radio-inline"> <input type="radio"
-						name="type" value="2" v-model="bcDefualtAccount.type" /> 积分发放
+						name="type" value="2" v-model="bcDefaultAccount.type" /> 积分发放
 					</label>
 				</div>
 				<div class="form-group">
@@ -87,6 +87,6 @@
 	</div>
 
 	<script
-		src="${request.contextPath}/statics/js/modules/generator/bcdefualtaccount.js?_${.now?long}"></script>
+		src="${request.contextPath}/statics/js/modules/generator/bcdefaultaccount.js?_${.now?long}"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: baseURL + 'bcdefualtaccount/list',
+        url: baseURL + 'bcdefaultaccount/list',
         datatype: "json",
         colModel: [			
 			{ label: 'id', name: 'accountId', index: 'account_id', width: 20, key: true },
@@ -54,7 +54,7 @@ var vm = new Vue({
 		showList: true,
 		title: null,
 		updateflag:false,
-		bcDefualtAccount: {}
+		bcDefaultAccount: {}
 	},
 	methods: {
 		query: function () {
@@ -64,7 +64,7 @@ var vm = new Vue({
 			vm.showList = false;
 			vm.title = "新增";
 			vm.updateflag = false,
-			vm.bcDefualtAccount = {status:1,type:2};
+			vm.bcDefaultAccount = {status:1,type:2};
 		},
 		update: function (event) {
 			var accountId = getSelectedRow();
@@ -78,12 +78,12 @@ var vm = new Vue({
             vm.getInfo(accountId)
 		},
 		saveOrUpdate: function (event) {
-			var url = vm.bcDefualtAccount.accountId == null ? "bcdefualtaccount/save" : "bcdefualtaccount/update";
+			var url = vm.bcDefaultAccount.accountId == null ? "bcdefaultaccount/save" : "bcdefaultaccount/update";
 			$.ajax({
 				type: "POST",
 			    url: baseURL + url,
 			    contentType: "application/json",
-			    data: JSON.stringify(vm.bcDefualtAccount),
+			    data: JSON.stringify(vm.bcDefaultAccount),
 			    success: function(r){
 			    	if(r.code === 0){
 						alert('操作成功', function(index){
@@ -104,7 +104,7 @@ var vm = new Vue({
 			confirm('确定要删除选中的记录？', function(){
 				$.ajax({
 					type: "POST",
-				    url: baseURL + "bcdefualtaccount/delete",
+				    url: baseURL + "bcdefaultaccount/delete",
 				    contentType: "application/json",
 				    data: JSON.stringify(accountIds),
 				    success: function(r){
@@ -120,8 +120,8 @@ var vm = new Vue({
 			});
 		},
 		getInfo: function(accountId){
-			$.get(baseURL + "bcdefualtaccount/info/"+accountId, function(r){
-                vm.bcDefualtAccount = r.bcDefualtAccount;
+			$.get(baseURL + "bcdefaultaccount/info/"+accountId, function(r){
+                vm.bcDefaultAccount = r.bcDefaultAccount;
             });
 		},
 		reload: function (event) {
