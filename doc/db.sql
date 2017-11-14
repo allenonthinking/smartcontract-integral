@@ -201,6 +201,21 @@ CREATE TABLE `bc_transaction`(
 	`type` int COMMENT '类型   1：普通转账   2：积分转账',
   	 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='交易表';
+
+
+-- 默认区块链账户表
+CREATE TABLE `bc_defualt_account` (
+  `account_id` bigint NOT NULL AUTO_INCREMENT,
+  `account_name` varchar(100) COMMENT '账户名',
+  `password` varchar(100) COMMENT '密码',
+  `salt` varchar(20) COMMENT '盐',
+  `address` varchar(200) COMMENT '账户地址',
+  `keystore` varchar(1020) COMMENT 'keystore',
+  `status` tinyint COMMENT '状态  0：禁用   1：正常',
+  `type` int COMMENT '类型   1:基础发放    2:积分发放',
+  `create_time` datetime COMMENT '创建时间',
+  PRIMARY KEY (`account_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='默认区块链账户';
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- 代码生成器相关SQL，如果不使用allen-gen模块，则不用执行下面SQL -------------------------------------------------------------------------------------------------------------
