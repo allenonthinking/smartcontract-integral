@@ -6,6 +6,22 @@
 		select i.* from sys_integral i ,sys_user_integral ui where ui.integral_id=i.integral_id and ui.user_id = #{value} limit 1
 	</select>
 
+	<select id="queryList" resultType="io.allen.modules.integral.entity.IntegralEntity">
+		select * from sys_integral
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by integral_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	
 	<insert id="save" parameterType="io.allen.modules.integral.entity.IntegralEntity" useGeneratedKeys="true" keyProperty="integralId">
 		insert into sys_integral
 		(
