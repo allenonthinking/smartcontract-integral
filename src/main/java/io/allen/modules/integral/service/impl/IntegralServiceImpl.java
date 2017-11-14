@@ -1,6 +1,8 @@
 package io.allen.modules.integral.service.impl;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,11 @@ public class IntegralServiceImpl implements IntegralService {
 		integral.setCreateTime(new Date());
 		integralDao.save(integral);
 		userIntegralService.saveOrUpdate(user.getUserId(), integral.getIntegralId());
+	}
+
+	@Override
+	public List<IntegralEntity> queryList(Map<String, Object> map) {
+		return integralDao.queryList(map);
 	}
 	
 

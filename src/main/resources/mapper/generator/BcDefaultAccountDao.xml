@@ -21,7 +21,7 @@
 	</select>
 
 	<select id="queryAccountByStatusAndType" resultType="io.allen.modules.generator.entity.BcDefaultAccountEntity" parameterType="map">
-		select * from bc_default_account where `status` = #{status} where `type` = #{type} 
+		select * from bc_default_account where `status` = #{status} and  `type` = #{type} 
 	</select>
 	
 	<select id="queryList" resultType="io.allen.modules.generator.entity.BcDefaultAccountEntity">
