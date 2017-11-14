@@ -90,7 +90,7 @@ public class SysAdminController extends AbstractController {
 	@SysLog("管理员绑定积分账户")
 	@RequestMapping("/binding")
 	@RequiresPermissions("sys:admin:binding")
-	public R save(@RequestBody Map<String, String> params){
+	public R binding(@RequestBody Map<String, String> params){
 		String prikey = params.get("prikey");
 		String password = params.get("password");
 		String userIdString = params.get("userId");

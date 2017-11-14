@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.allen.modules.generator.dao.BcDefualtAccountDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.allen.modules.generator.entity.BcDefualtAccountEntity" id="bcDefualtAccountMap">
+        <result property="accountId" column="account_id"/>
+        <result property="accountName" column="account_name"/>
+        <result property="password" column="password"/>
+        <result property="salt" column="salt"/>
+        <result property="address" column="address"/>
+        <result property="keystore" column="keystore"/>
+        <result property="status" column="status"/>
+        <result property="type" column="type"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.allen.modules.generator.entity.BcDefualtAccountEntity">
+		select * from bc_defualt_account where account_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.allen.modules.generator.entity.BcDefualtAccountEntity">
+		select * from bc_defualt_account
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by account_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from bc_defualt_account 
+	</select>
+	 
+	<insert id="save" parameterType="io.allen.modules.generator.entity.BcDefualtAccountEntity" useGeneratedKeys="true" keyProperty="accountId">
+		insert into bc_defualt_account
+		(
+			`account_name`, 
+			`password`, 
+			`salt`, 
+			`address`, 
+			`keystore`, 
+			`status`, 
+			`type`, 
+			`create_time`
+		)
+		values
+		(
+			#{accountName}, 
+			#{password}, 
+			#{salt}, 
+			#{address}, 
+			#{keystore}, 
+			#{status}, 
+			#{type}, 
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.allen.modules.generator.entity.BcDefualtAccountEntity">
+		update bc_defualt_account 
+		<set>
+			<if test="accountName != null">`account_name` = #{accountName}, </if>
+			<if test="password != null">`password` = #{password}, </if>
+			<if test="salt != null">`salt` = #{salt}, </if>
+			<if test="address != null">`address` = #{address}, </if>
+			<if test="keystore != null">`keystore` = #{keystore}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}</if>
+		</set>
+		where account_id = #{accountId}
+	</update>
+	
+	<delete id="delete">
+		delete from bc_defualt_account where account_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from bc_defualt_account where account_id in 
+		<foreach item="accountId" collection="array" open="(" separator="," close=")">
+			#{accountId}
+		</foreach>
+	</delete>
+
+</mapper>
