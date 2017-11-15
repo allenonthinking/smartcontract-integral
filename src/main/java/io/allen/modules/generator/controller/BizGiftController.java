@@ -48,14 +48,19 @@ public class BizGiftController extends AbstractController {
 		return R.ok().put("page", pageUtil);
 	}
 	
+	/**
+	 * 查询可兑换礼品列表数据
+	 * @param params
+	 * @return
+	 */
 	@RequestMapping("/exchange/list")
 	@RequiresPermissions("bizgift:exchange:list")
 	public R exchangeList(@RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
 
-		List<BizGiftEntity> bizGiftList = bizGiftService.queryList(query);
-		int total = bizGiftService.queryTotal(query);
+		List<BizGiftEntity> bizGiftList = bizGiftService.queryExchangeList(query);
+		int total = bizGiftService.queryExchangeTotal(query);
 		
 		PageUtils pageUtil = new PageUtils(bizGiftList, total, query.getLimit(), query.getPage());
 		

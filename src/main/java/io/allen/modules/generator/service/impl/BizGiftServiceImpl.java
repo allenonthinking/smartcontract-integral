@@ -56,5 +56,15 @@ public class BizGiftServiceImpl implements BizGiftService {
 	public void deleteBatch(Long[] giftIds){
 		bizGiftDao.deleteBatch(giftIds);
 	}
+
+	@Override
+	public List<BizGiftEntity> queryExchangeList(Map<String, Object> map) {
+		return bizGiftDao.queryExchangeList(map);
+	}
+
+	@Override
+	public int queryExchangeTotal(Map<String, Object> map) {
+		return bizGiftDao.queryExchangeTotal(map);
+	}
 	
 }
