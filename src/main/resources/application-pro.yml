@@ -44,6 +44,8 @@ allen:
 
     integralContrctAddress: "0x2a89331b94897110b2fc9a74127b433babb0ffbe"
 
+    integralRecycleAddress: "0x3d8219f37278287b65752876cef17d142993f20f"
+
     gaslimit: 3000000
 
     txdata: jieyue
