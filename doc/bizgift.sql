@@ -17,4 +17,4 @@ INSERT INTO `sys_menu` (`parent_id`, `name`, `url`, `perms`, `type`, `icon`, `or
 
     
 INSERT INTO `sys_menu` (`parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`)
-    VALUES ('48', '礼品兑换', 'modules/generator/exchangegift.html', NULL, '1', 'fa fa-exchange', '7');    
+    VALUES ('48', '礼品兑换', 'modules/generator/exchangegift.html', 'bizgift:exchange:list', '1', 'fa fa-exchange', '7');    

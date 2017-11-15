@@ -19,6 +19,10 @@ public interface BizGiftService {
 	
 	int queryTotal(Map<String, Object> map);
 	
+	List<BizGiftEntity> queryExchangeList(Map<String, Object> map);
+	
+	int queryExchangeTotal(Map<String, Object> map);
+	
 	void save(BizGiftEntity bizGift);
 	
 	void update(BizGiftEntity bizGift);
