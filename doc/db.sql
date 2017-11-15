@@ -149,6 +149,8 @@ INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, 
 
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('47', '37', '积分详情', 'modules/integral/integralinfo.html',NULL, '1', 'fa fa-file-text-o', '0');
 
+INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('48', '0', '礼品', NULL, NULL, '0', 'fa fa-gift', '0');
+
 
 
 -- 积分表
@@ -216,6 +218,27 @@ CREATE TABLE `bc_default_account` (
   `create_time` datetime COMMENT '创建时间',
   PRIMARY KEY (`account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='默认区块链账户';
+
+
+CREATE TABLE `biz_gift` (
+  `gift_id` bigint NOT NULL AUTO_INCREMENT COMMENT '礼品id',
+  `gift_name` varchar(255) DEFAULT '' COMMENT '礼品名称',
+  `nickname` varchar(255) DEFAULT NULL COMMENT '别名',
+  `image` varchar(255) DEFAULT '' COMMENT '礼品主图',
+  `url` varchar(255) DEFAULT '' COMMENT '链接地址',
+  `exchange_price` int(11) DEFAULT NULL COMMENT '积分兑换价（1积分为单位）',
+  `buy_price` int(11) DEFAULT NULL COMMENT '采购价（以元为单位）',
+  `total` int(11) DEFAULT NULL COMMENT '数量',
+  `del_state` tinyint(4) DEFAULT '2' COMMENT '删除 1是 2否',
+  `simple_describe` varchar(255) DEFAULT '' COMMENT '简要描述',
+  `detail_describe` text COMMENT '详细描述',
+  `is_marketable` tinyint(4) DEFAULT '0' COMMENT '上架标志 1 已上架 0 未上架',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_id` bigint COMMENT '创建者id',
+  PRIMARY KEY (`gift_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='礼品表';
+
+
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- 代码生成器相关SQL，如果不使用allen-gen模块，则不用执行下面SQL -------------------------------------------------------------------------------------------------------------

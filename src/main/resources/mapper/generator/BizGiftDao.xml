@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.allen.modules.generator.dao.BizGiftDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.allen.modules.generator.entity.BizGiftEntity" id="bizGiftMap">
+        <result property="giftId" column="gift_id"/>
+        <result property="giftName" column="gift_name"/>
+        <result property="nickname" column="nickname"/>
+        <result property="image" column="image"/>
+        <result property="url" column="url"/>
+        <result property="exchangePrice" column="exchange_price"/>
+        <result property="buyPrice" column="buy_price"/>
+        <result property="total" column="total"/>
+        <result property="delState" column="del_state"/>
+        <result property="simpleDescribe" column="simple_describe"/>
+        <result property="detailDescribe" column="detail_describe"/>
+        <result property="isMarketable" column="is_marketable"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createId" column="create_id"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.allen.modules.generator.entity.BizGiftEntity">
+		select * from biz_gift where gift_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.allen.modules.generator.entity.BizGiftEntity">
+		select * from biz_gift
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by gift_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from biz_gift 
+	</select>
+	 
+	<select id="queryExchangeList" resultType="io.allen.modules.generator.entity.BizGiftEntity">
+		select * from biz_gift
+		<where>
+        	<if test="true">
+				and  is_marketable=1 and total &gt; 0
+			</if>		
+		</where>
+        <choose>
+
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by gift_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryExchangeTotal" resultType="int">
+		select count(*) from biz_gift 
+		<where>
+        	<if test="true">
+				and  is_marketable=1 and total &gt; 0
+			</if>		
+		</where>		
+	</select>
+		 
+	<insert id="save" parameterType="io.allen.modules.generator.entity.BizGiftEntity" useGeneratedKeys="true" keyProperty="giftId">
+		insert into biz_gift
+		(
+			`gift_name`, 
+			`nickname`, 
+			`image`, 
+			`url`, 
+			`exchange_price`, 
+			`buy_price`, 
+			`total`, 
+			`del_state`, 
+			`simple_describe`, 
+			`detail_describe`, 
+			`is_marketable`, 
+			`create_time`, 
+			`create_id`
+		)
+		values
+		(
+			#{giftName}, 
+			#{nickname}, 
+			#{image}, 
+			#{url}, 
+			#{exchangePrice}, 
+			#{buyPrice}, 
+			#{total}, 
+			#{delState}, 
+			#{simpleDescribe}, 
+			#{detailDescribe}, 
+			#{isMarketable}, 
+			#{createTime}, 
+			#{createId}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.allen.modules.generator.entity.BizGiftEntity">
+		update biz_gift 
+		<set>
+			<if test="giftName != null">`gift_name` = #{giftName}, </if>
+			<if test="nickname != null">`nickname` = #{nickname}, </if>
+			<if test="image != null">`image` = #{image}, </if>
+			<if test="url != null">`url` = #{url}, </if>
+			<if test="exchangePrice != null">`exchange_price` = #{exchangePrice}, </if>
+			<if test="buyPrice != null">`buy_price` = #{buyPrice}, </if>
+			<if test="total != null">`total` = #{total}, </if>
+			<if test="delState != null">`del_state` = #{delState}, </if>
+			<if test="simpleDescribe != null">`simple_describe` = #{simpleDescribe}, </if>
+			<if test="detailDescribe != null">`detail_describe` = #{detailDescribe}, </if>
+			<if test="isMarketable != null">`is_marketable` = #{isMarketable}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="createId != null">`create_id` = #{createId}</if>
+		</set>
+		where gift_id = #{giftId}
+	</update>
+	
+	<delete id="delete">
+		delete from biz_gift where gift_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from biz_gift where gift_id in 
+		<foreach item="giftId" collection="array" open="(" separator="," close=")">
+			#{giftId}
+		</foreach>
+	</delete>
+
+</mapper>
