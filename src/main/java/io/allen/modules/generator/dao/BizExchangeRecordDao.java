@@ -3,6 +3,8 @@ package io.allen.modules.generator.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import io.allen.modules.generator.entity.BizExchangeRecordEntity;
 import io.allen.modules.sys.dao.BaseDao;
 
@@ -12,6 +14,7 @@ import io.allen.modules.sys.dao.BaseDao;
  * @author allen.liu
  * @date 2017-11-15 10:55:46
  */
+@Mapper
 public interface BizExchangeRecordDao extends BaseDao<BizExchangeRecordEntity> {
 	List<BizExchangeRecordEntity> queryPersonalList(Map<String, Object> map);
 	
