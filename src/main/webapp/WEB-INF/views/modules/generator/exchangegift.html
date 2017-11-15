@@ -8,15 +8,9 @@
 	<div id="rrapp" v-cloak>
 		<div v-show="showList">
 			<div class="grid-btn">
-<!-- 				<#if shiro.hasPermission("bizgift:save")> <a
-					class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+ 				<#if shiro.hasPermission("bizgift:exchange:save")> <a
+					class="btn btn-primary" @click="exchange"><i class="fa fa-plus"></i>&nbsp;兑换</a>
 				</#if>
-				<#if shiro.hasPermission("bizgift:update")> <a
-					class="btn btn-primary" @click="update"><i
-					class="fa fa-pencil-square-o"></i>&nbsp;修改</a> </#if>
-				<#if shiro.hasPermission("bizgift:delete")> <a
-					class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
-				</#if> -->
 			</div>
 			<table id="jqGrid"></table>
 			<div id="jqGridPager"></div>
@@ -28,14 +22,14 @@
 				<div class="form-group">
 					<div class="col-sm-2 control-label">礼品名称</div>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" v-model="bizGift.giftName"
+						<input type="text" class="form-control" v-model="bizGift.giftName" readonly="readonly"
 							placeholder="礼品名称" />
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-2 control-label">别名</div>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" v-model="bizGift.nickname"
+						<input type="text" class="form-control" v-model="bizGift.nickname" readonly="readonly"
 							placeholder="别名" />
 					</div>
 				</div>
@@ -43,34 +37,47 @@
 					<div class="col-sm-2 control-label">积分兑换价</div>
 					<div class="col-sm-10">
 						<input type="text" class="form-control"
-							v-model="bizGift.exchangePrice" placeholder="积分兑换价（1积分为单位）" />
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-2 control-label">数量</div>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" v-model="bizGift.total"
-							placeholder="数量" />
+							v-model="bizGift.exchangePrice" placeholder="积分兑换价" readonly="readonly" />
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-2 control-label">简要描述</div>
 					<div class="col-sm-10">
 						<input type="text" class="form-control"
-							v-model="bizGift.simpleDescribe" placeholder="简要描述" />
+							v-model="bizGift.simpleDescribe" placeholder="简要描述" readonly="readonly" />
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-sm-2 control-label">上架标志 </div>
-					<label class="radio-inline"> <input type="radio"
-						name="type" value="0" v-model="bizGift.isMarketable" />未上架
-					</label> <label class="radio-inline"> <input type="radio"
-						name="type" value="1" v-model="bizGift.isMarketable" />已上架
-					</label>
+					<div class="col-sm-2 control-label">剩余数量</div>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" v-model="bizGift.total" readonly="readonly"
+							placeholder="礼品剩余数量" />
+					</div>
 				</div>
 				<div class="form-group">
+					<div class="col-sm-2 control-label">剩余积分</div>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" v-model="bizGift.integralBalance" readonly="readonly"
+							placeholder="剩余" />
+					</div>
+				</div>	
+				<div class="form-group">
+					<div class="col-sm-2 control-label">兑换数量</div>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" v-model="bizGift.count"
+							placeholder="兑换数量" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2 control-label">积分账户密码</div>
+					<div class="col-sm-10">
+						<input type="password" class="form-control" v-model="bizGift.password"
+							placeholder="密码" />
+					</div>
+				</div>														
+				<div class="form-group">
 					<div class="col-sm-2 control-label"></div>
-					<input type="button" class="btn btn-primary" @click="saveOrUpdate"
+					<input type="button" class="btn btn-primary" @click="saveExchange"
 						value="确定" /> &nbsp;&nbsp;<input type="button"
 						class="btn btn-warning" @click="reload" value="返回" />
 				</div>

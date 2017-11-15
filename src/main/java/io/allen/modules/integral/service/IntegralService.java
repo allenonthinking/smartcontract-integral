@@ -18,4 +18,6 @@ public interface IntegralService {
 	void bindingIntegralUser(IntegralEntity  integral , SysUserEntity user);
 	
 	List<IntegralEntity> queryList(Map<String, Object> map);
+	
+	double getIntegralBalance(String contractAddress, String ownerAddress);
 }

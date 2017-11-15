@@ -30,4 +30,6 @@ public interface BizExchangeRecordService {
 	void delete(Long id);
 	
 	void deleteBatch(Long[] ids);
+	
+	void exchangeMinStock(BizExchangeRecordEntity bizExchangeRecord,Long giftId, Integer count);
 }

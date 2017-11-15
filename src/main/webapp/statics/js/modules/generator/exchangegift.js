@@ -48,23 +48,22 @@ var vm = new Vue({
 		query: function () {
 			vm.reload();
 		},
-		add: function(){
-			vm.showList = false;
-			vm.title = "新增";
-			vm.bizGift = {isMarketable:1};
-		},
-		update: function (event) {
+		exchange : function(){
 			var giftId = getSelectedRow();
-			if(giftId == null){
-				return ;
-			}
-			vm.showList = false;
-            vm.title = "修改";
-            
-            vm.getInfo(giftId)
+			$.get(baseURL + "bizgift/exchange/info/"+giftId, function(r){
+				if(r.code != 0){
+					alert(r.msg,function(index){
+						vm.reload();
+					});
+				}else{
+					vm.bizGift = r.bizGift;
+					vm.showList = false;
+					vm.title = "兑换礼品";
+				}
+            });
 		},
-		saveOrUpdate: function (event) {
-			var url = vm.bizGift.giftId == null ? "bizgift/save" : "bizgift/update";
+		saveExchange: function (event) {
+			var url = "bizgift/exchange/save";
 			$.ajax({
 				type: "POST",
 			    url: baseURL + url,
@@ -80,35 +79,6 @@ var vm = new Vue({
 					}
 				}
 			});
-		},
-		del: function (event) {
-			var giftIds = getSelectedRows();
-			if(giftIds == null){
-				return ;
-			}
-			
-			confirm('确定要删除选中的记录？', function(){
-				$.ajax({
-					type: "POST",
-				    url: baseURL + "bizgift/delete",
-				    contentType: "application/json",
-				    data: JSON.stringify(giftIds),
-				    success: function(r){
-						if(r.code == 0){
-							alert('操作成功', function(index){
-								$("#jqGrid").trigger("reloadGrid");
-							});
-						}else{
-							alert(r.msg);
-						}
-					}
-				});
-			});
-		},
-		getInfo: function(giftId){
-			$.get(baseURL + "bizgift/info/"+giftId, function(r){
-                vm.bizGift = r.bizGift;
-            });
 		},
 		reload: function (event) {
 			vm.showList = true;

@@ -2,11 +2,14 @@ package io.allen.modules.generator.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import io.allen.modules.generator.dao.BizExchangeRecordDao;
+import io.allen.modules.generator.dao.BizGiftDao;
 import io.allen.modules.generator.entity.BizExchangeRecordEntity;
 import io.allen.modules.generator.service.BizExchangeRecordService;
 
@@ -16,6 +19,9 @@ import io.allen.modules.generator.service.BizExchangeRecordService;
 public class BizExchangeRecordServiceImpl implements BizExchangeRecordService {
 	@Autowired
 	private BizExchangeRecordDao bizExchangeRecordDao;
+	
+	@Autowired
+	private BizGiftDao bizGiftDao;
 	
 	@Override
 	public BizExchangeRecordEntity queryObject(Long id){
@@ -33,11 +39,14 @@ public class BizExchangeRecordServiceImpl implements BizExchangeRecordService {
 	}
 	
 	@Override
+	@Transactional
 	public void save(BizExchangeRecordEntity bizExchangeRecord){
+		bizExchangeRecord.setCreateTime(new Date());
 		bizExchangeRecordDao.save(bizExchangeRecord);
 	}
 	
 	@Override
+	@Transactional
 	public void update(BizExchangeRecordEntity bizExchangeRecord){
 		bizExchangeRecordDao.update(bizExchangeRecord);
 	}
@@ -62,6 +71,14 @@ public class BizExchangeRecordServiceImpl implements BizExchangeRecordService {
 	public int queryPersonalTotal(Map<String, Object> map, Long userId) {
 		map.put("userId", userId);
 		return bizExchangeRecordDao.queryPersonalTotal(map);
+	}
+
+	@Override
+	@Transactional
+	public void exchangeMinStock(BizExchangeRecordEntity bizExchangeRecord, Long giftId, Integer count) {
+		bizExchangeRecord.setCreateTime(new Date());
+		bizExchangeRecordDao.save(bizExchangeRecord);
+		bizGiftDao.updateTotal(giftId, count);
 	}
 	
 }

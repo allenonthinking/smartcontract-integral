@@ -30,11 +30,12 @@ public class ERCToken20Config {
 
 	@Bean("integralConfig")
 	public IntegralConfig integralConfig(@Value("${allen.integralContrctAddress}") String integralContrctAddress,
-			@Value("${allen.gaslimit}") BigInteger gasLimit, @Value("${allen.txdata}") String txData) {
+			@Value("${allen.gaslimit}") BigInteger gasLimit, @Value("${allen.txdata}") String txData,@Value("${allen.integralRecycleAddress}") String recycleAddress) {
 		IntegralConfig integralConfig = new IntegralConfig();
 		integralConfig.setContractAddress(integralContrctAddress);
 		integralConfig.setGasLimit(gasLimit);
 		integralConfig.setTxData(txData);
+		integralConfig.setRecycleAddress(recycleAddress);
 		return integralConfig;
 	}
 

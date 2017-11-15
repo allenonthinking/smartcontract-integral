@@ -128,7 +128,13 @@
 		</set>
 		where gift_id = #{giftId}
 	</update>
-	
+	<update id="updateTotal">
+		update biz_gift 
+		<set>
+			<if test="count != null">`total` = `total`- #{count} </if>
+		</set>
+		where gift_id = #{giftId}
+	</update>	
 	<delete id="delete">
 		delete from biz_gift where gift_id = #{value}
 	</delete>
