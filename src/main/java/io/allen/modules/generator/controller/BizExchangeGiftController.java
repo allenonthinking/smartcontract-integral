@@ -2,7 +2,6 @@ package io.allen.modules.generator.controller;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.spongycastle.util.encoders.Hex;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.beans.BeanMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +20,6 @@ import io.allen.common.utils.PageUtils;
 import io.allen.common.utils.Query;
 import io.allen.common.utils.R;
 import io.allen.crypto.ECKey;
-import io.allen.crypto.EthereumAccount;
 import io.allen.crypto.KeystoreFormat;
 import io.allen.modules.erc20.generated.CryptoUtils;
 import io.allen.modules.erc20.generated.IntegralConfig;
@@ -204,7 +201,7 @@ public class BizExchangeGiftController extends AbstractController {
 			 bcTransaction.setFromAddress(fromAddress);
 			 bcTransaction.setContractAddress(jytContractAddress);
 			 bcTransaction.setToAddress(toAddress);
-			 bcTransaction.setAmount(integral.toString());
+			 bcTransaction.setAmount(transferValue.toString());
 			 bcTransaction.setValue(balance.toString());
 			 bcTransaction.setDecimals(decimals.longValue());
 			 bcTransaction.setType(2);
