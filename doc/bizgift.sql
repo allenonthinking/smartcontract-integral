@@ -18,3 +18,9 @@ INSERT INTO `sys_menu` (`parent_id`, `name`, `url`, `perms`, `type`, `icon`, `or
     
 INSERT INTO `sys_menu` (`parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`)
     VALUES ('48', '礼品兑换', 'modules/generator/exchangegift.html', 'bizgift:exchange:list', '1', 'fa fa-exchange', '7');    
+    
+-- 按钮父菜单ID
+set @parentId = @@identity;
+INSERT INTO `sys_menu` (`parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`)
+    SELECT @parentId, '兑换', null, 'bizgift:exchange:save', '2', null, '6';
+    

@@ -85,12 +85,12 @@ public class ContractService {
 		}
 	}
 
-	public TransactionResponse<TransferEventResponse> transferKey(String privateKey, String contractAddress, String to,
+	public TransactionResponse transferKey(String privateKey, String contractAddress, String to,
 			BigInteger value) {
 		HumanStandardToken humanStandardToken = loadKey(contractAddress, privateKey);
 		try {
 			TransactionReceipt transactionReceipt = humanStandardToken.transferNoWait(new Address(to), new Uint256(value));
-			return new TransactionResponse<>(transactionReceipt.getTransactionHash());
+			return new TransactionResponse(transactionReceipt.getTransactionHash());
 		} catch (InterruptedException  |IOException  |TransactionTimeoutException e) {
 			throw new RuntimeException(e);
 		}

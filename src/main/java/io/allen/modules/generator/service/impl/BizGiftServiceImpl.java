@@ -66,5 +66,11 @@ public class BizGiftServiceImpl implements BizGiftService {
 	public int queryExchangeTotal(Map<String, Object> map) {
 		return bizGiftDao.queryExchangeTotal(map);
 	}
+
+	@Override
+	@Transactional
+	public void updateTotal(Long giftId, Integer count) {
+		bizGiftDao.updateTotal(giftId, count);
+	}
 	
 }

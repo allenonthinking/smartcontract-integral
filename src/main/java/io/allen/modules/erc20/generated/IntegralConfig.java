@@ -13,6 +13,8 @@ public class IntegralConfig {
     
     private String txData;
 
+    private String recycleAddress;
+    
 	public String getContractAddress() {
 		return contractAddress;
 	}
@@ -35,6 +37,14 @@ public class IntegralConfig {
 
 	public void setTxData(String txData) {
 		this.txData = txData;
+	}
+
+	public String getRecycleAddress() {
+		return recycleAddress;
+	}
+
+	public void setRecycleAddress(String recycleAddress) {
+		this.recycleAddress = recycleAddress;
 	}
 
     

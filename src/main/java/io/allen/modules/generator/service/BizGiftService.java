@@ -1,9 +1,9 @@
 package io.allen.modules.generator.service;
 
-import io.allen.modules.generator.entity.BizGiftEntity;
-
 import java.util.List;
 import java.util.Map;
+
+import io.allen.modules.generator.entity.BizGiftEntity;
 
 /**
  * 礼品表
@@ -27,6 +27,8 @@ public interface BizGiftService {
 	
 	void update(BizGiftEntity bizGift);
 	
+	void updateTotal(Long giftId, Integer count);
+
 	void delete(Long giftId);
 	
 	void deleteBatch(Long[] giftIds);
