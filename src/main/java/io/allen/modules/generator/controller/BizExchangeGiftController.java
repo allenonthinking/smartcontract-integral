@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.web3j.utils.Convert;
+import org.web3j.utils.Convert.Unit;
 
 import io.allen.common.utils.MapUtils;
 import io.allen.common.utils.PageUtils;
@@ -163,6 +165,11 @@ public class BizExchangeGiftController extends AbstractController {
 		String fromAddress = CryptoUtils.checkAddress(integral.getAddress());
 		// 积分回收地址
 		String toAddress = CryptoUtils.checkAddress(integralConfig.getRecycleAddress());
+		
+		// 检验账户转账手续费是否足够
+		if(!checkEthBalanceEnough(fromAddress)) {
+			return R.error("积分账户转账手续费不足，请联系管理员");
+		}
 		// 检验积分余额
 		double integralBalance = integralService.getIntegralBalance(jytContractAddress, fromAddress);
 		if(integralBalanceView >integralBalance) {
@@ -215,5 +222,20 @@ public class BizExchangeGiftController extends AbstractController {
 			return R.error(e.getMessage());
 		}
 		return R.ok().put("txid", txId);
+	}
+	private boolean checkEthBalanceEnough(String address) {
+		try {
+			BigInteger  accountBalance = contractService.etherBalanceOf(CryptoUtils.checkAddress(address));
+			BigInteger normalAccountBalanceWei =  Convert.toWei(new BigDecimal("0.01"), Unit.ETHER).toBigInteger(); 
+			// 默认账户小于最小定义余额，则转账
+			if(accountBalance.compareTo(normalAccountBalanceWei) < 0 ) {
+				return false ;
+			}else {
+				return true;
+			}
+		} catch (Exception e) {
+			return false ;
+		}
+		
 	}
 }
