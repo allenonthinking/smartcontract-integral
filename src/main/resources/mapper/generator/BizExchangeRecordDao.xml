@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.allen.modules.generator.dao.BizExchangeRecordDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.allen.modules.generator.entity.BizExchangeRecordEntity" id="bizExchangeRecordMap">
+        <result property="id" column="id"/>
+        <result property="txId" column="tx_id"/>
+        <result property="transferValue" column="transfer_value"/>
+        <result property="amount" column="amount"/>
+        <result property="createTime" column="create_time"/>
+        <result property="address" column="address"/>
+        <result property="createId" column="create_id"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.allen.modules.generator.entity.BizExchangeRecordEntity">
+		select * from biz_exchange_record where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.allen.modules.generator.entity.BizExchangeRecordEntity">
+		select * from biz_exchange_record
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from biz_exchange_record 
+	</select>
+
+	<select id="queryPersonalList" resultType="io.allen.modules.generator.entity.BizExchangeRecordEntity">
+		select * from biz_exchange_record
+		<where>
+			<if test="true">
+				and createId  = #{userId}
+			</if>
+		</where>		
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryPersonalTotal" resultType="int">
+		select count(*) from biz_exchange_record 
+		<where>
+			<if test="true">
+				and createId  = #{userId}
+			</if>
+		</where>		
+	</select>
+		 
+	<insert id="save" parameterType="io.allen.modules.generator.entity.BizExchangeRecordEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into biz_exchange_record
+		(
+			`tx_id`, 
+			`transfer_value`, 
+			`amount`, 
+			`create_time`, 
+			`address`, 
+			`create_id`
+		)
+		values
+		(
+			#{txId}, 
+			#{transferValue}, 
+			#{amount}, 
+			#{createTime}, 
+			#{address}, 
+			#{createId}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.allen.modules.generator.entity.BizExchangeRecordEntity">
+		update biz_exchange_record 
+		<set>
+			<if test="txId != null">`tx_id` = #{txId}, </if>
+			<if test="transferValue != null">`transfer_value` = #{transferValue}, </if>
+			<if test="amount != null">`amount` = #{amount}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="address != null">`address` = #{address}, </if>
+			<if test="createId != null">`create_id` = #{createId}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from biz_exchange_record where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from biz_exchange_record where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

@@ -219,7 +219,7 @@ CREATE TABLE `bc_default_account` (
   PRIMARY KEY (`account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='默认区块链账户';
 
-
+-- 礼品表
 CREATE TABLE `biz_gift` (
   `gift_id` bigint NOT NULL AUTO_INCREMENT COMMENT '礼品id',
   `gift_name` varchar(255) DEFAULT '' COMMENT '礼品名称',
@@ -238,6 +238,17 @@ CREATE TABLE `biz_gift` (
   PRIMARY KEY (`gift_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='礼品表';
 
+-- 礼品兑换记录
+CREATE TABLE `biz_exchange_record` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `tx_id` varchar(255)  COMMENT '交易',
+  `transfer_value` bigint COMMENT '转账积分数额',
+  `amount` tinyint(4) DEFAULT '0' COMMENT '兑换数量',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `address` varchar(200) COMMENT '账户地址',
+  `create_id` bigint COMMENT '兑换人id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='礼品兑换记录';
 
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
