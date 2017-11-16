@@ -8,7 +8,7 @@ $(function () {
             { label: '所属部门', name: 'deptName', width: 75 },
 			{ label: '类型', name: 'type', width: 60, formatter: function(value, options, row){
 				return value === 1 ? 
-					'<span class="label label-primary">系统用户</span>' : 
+					'<span class="label label-primary">管理用户</span>' : 
 					'<span class="label label-success">普通用户</span>';
 			}},
 			

@@ -34,7 +34,7 @@ public class BizExchangePersonalRecordController extends AbstractController{
 	 * @param params
 	 * @return
 	 */
-	@RequestMapping("/list/")
+	@RequestMapping("/list")
 	@RequiresPermissions("bizexchangerecord:personal:list")
 	public R personalList(@RequestParam Map<String, Object> params){
 		//查询列表数据

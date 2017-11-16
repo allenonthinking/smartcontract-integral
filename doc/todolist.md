@@ -9,4 +9,6 @@
 	使用消息队列定制交易发放，交易成功通知，状态改变通知
 
 6.账户状态核实
+7.transfer success but contract fail  -- check status
+8.管理管理员用户显示角色
 	

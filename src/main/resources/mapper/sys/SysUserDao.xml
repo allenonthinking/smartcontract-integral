@@ -42,7 +42,7 @@
 	</select>
 	
 	
-	<!-- 查询系统用户 -->
+	<!-- 查询管理用户 -->
 	
 	<select id="querySystemList" resultType="io.allen.modules.sys.entity.SysUserEntity">
 		select u.*, (select d.name from sys_dept d where d.dept_id = u.dept_id) deptName ,ba.address integralAddress  from sys_user_role ur ,sys_role r, sys_user u  

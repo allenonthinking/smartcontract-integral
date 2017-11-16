@@ -96,7 +96,7 @@ var vm = new Vue({
             vm.roleList = {};
             vm.user = {deptName:null, deptId:null, status:1, roleIdList:[]};
 
-            //获取系统角色信息
+            //获取管理角色信息
             this.getSystemRoleList();
 
             vm.getDept();
@@ -125,7 +125,7 @@ var vm = new Vue({
             vm.title = "修改";
 
             vm.getUser(userId);
-            //获取系统角色信息
+            //获取管理角色信息
             this.getSystemRoleList();
         },
         del: function () {
