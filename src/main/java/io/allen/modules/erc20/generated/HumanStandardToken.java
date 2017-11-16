@@ -182,7 +182,7 @@ public final class HumanStandardToken extends Contract {
     }
     
     public TransactionReceipt burn(Uint256 _value) throws InterruptedException, IOException, TransactionTimeoutException {
-        Function function = new Function("transfer", Arrays.<Type>asList(_value), Collections.<TypeReference<?>>emptyList());
+        Function function = new Function("burn", Arrays.<Type>asList(_value), Collections.<TypeReference<?>>emptyList());
         return executeTransaction(function);
     }
     
