@@ -90,6 +90,10 @@ public class UserRealm extends AuthorizingRealm {
             throw new UnknownAccountException("账号或密码不正确");
         }
 
+        //账户状态禁用
+        if(user.getStatus() != 1) {
+        	throw new UnknownAccountException("账号被禁用,请联系管理员");
+        }
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(user.getSalt()), getName());
         return info;
 	}
