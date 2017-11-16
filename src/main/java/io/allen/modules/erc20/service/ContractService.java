@@ -96,6 +96,17 @@ public class ContractService {
 		}
 	}
 
+	public TransactionResponse burnKey(String privateKey, String contractAddress,
+			BigInteger value) {
+		HumanStandardToken humanStandardToken = loadKey(contractAddress, privateKey);
+		try {
+			TransactionReceipt transactionReceipt = humanStandardToken.burn(new Uint256(value));
+			return new TransactionResponse(transactionReceipt.getTransactionHash());
+		} catch (InterruptedException  |IOException  |TransactionTimeoutException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public TransactionResponse<TransferEventResponse> transferEventKey(String privateKey, String contractAddress, String to,
 			BigInteger value) {
 		HumanStandardToken humanStandardToken = loadKey(contractAddress, privateKey);

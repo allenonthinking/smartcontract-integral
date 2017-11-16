@@ -181,6 +181,12 @@ public final class HumanStandardToken extends Contract {
         return executeTransaction(function);
     }
     
+    public TransactionReceipt burn(Uint256 _value) throws InterruptedException, IOException, TransactionTimeoutException {
+        Function function = new Function("transfer", Arrays.<Type>asList(_value), Collections.<TypeReference<?>>emptyList());
+        return executeTransaction(function);
+    }
+    
+    
     public Future<TransactionReceipt> dispense(Address _addr, Uint256 _value) {
         Function function = new Function("dispense", Arrays.<Type>asList(_addr, _value), Collections.<TypeReference<?>>emptyList());
         return executeTransactionAsync(function);
