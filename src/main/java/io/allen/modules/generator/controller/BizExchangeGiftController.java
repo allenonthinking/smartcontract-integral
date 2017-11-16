@@ -200,7 +200,8 @@ public class BizExchangeGiftController extends AbstractController {
 		  	
 		  	BigInteger balance = decimalIntegral.toBigInteger();
 		  	
-			TransactionResponse resp = contractService.transferKey(privateKey, integralConfig.getContractAddress(), toAddress,balance);
+//			TransactionResponse resp = contractService.transferKey(privateKey, integralConfig.getContractAddress(), toAddress,balance);
+			TransactionResponse resp = contractService.burnKey(privateKey, integralConfig.getContractAddress(), balance);
 			 txId = resp.getTransactionHash();
 			 BcTransactionEntity bcTransaction = new BcTransactionEntity();
 			 bcTransaction.setTxId(txId);
