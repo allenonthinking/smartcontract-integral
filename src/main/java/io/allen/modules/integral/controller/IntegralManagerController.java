@@ -155,7 +155,8 @@ public class IntegralManagerController extends AbstractController{
 		  	if(balance.compareTo(owner) >=0){
 		  		return R.error("发放账户余额不足");
 		  	}
-			TransactionResponse resp = contractService.transferKey(privateKey, integralConfig.getContractAddress(), address,balance);
+//			TransactionResponse resp = contractService.transferKey(privateKey, integralConfig.getContractAddress(), address,balance);
+			TransactionResponse resp = contractService.transferKeyNotWait(privateKey, integralConfig.getContractAddress(), address,balance);
 			String txId = resp.getTransactionHash();
 			 BcTransactionEntity bcTransaction = new BcTransactionEntity();
 			 bcTransaction.setTxId(txId);
@@ -169,8 +170,6 @@ public class IntegralManagerController extends AbstractController{
 			 bcTransaction.setType(2);
 			 bcTransactionService.save(bcTransaction);
 			return R.ok().put("txid", txId);
-//			contractService.transferKey(privateKey, integralConfig.getContractAddress(), address,balance);
-//			return R.ok();
 		} catch (Exception e) {
 			return R.error(e.getMessage());
 		}

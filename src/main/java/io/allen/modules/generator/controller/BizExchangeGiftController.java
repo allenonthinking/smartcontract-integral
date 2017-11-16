@@ -201,7 +201,8 @@ public class BizExchangeGiftController extends AbstractController {
 		  	BigInteger balance = decimalIntegral.toBigInteger();
 		  	
 //			TransactionResponse resp = contractService.transferKey(privateKey, integralConfig.getContractAddress(), toAddress,balance);
-			TransactionResponse resp = contractService.burnKey(privateKey, integralConfig.getContractAddress(), balance);
+//			TransactionResponse resp = contractService.burnKey(privateKey, integralConfig.getContractAddress(), balance);
+			TransactionResponse resp = contractService.burnKeyNotWait(privateKey, integralConfig.getContractAddress(), balance);
 			 txId = resp.getTransactionHash();
 			 BcTransactionEntity bcTransaction = new BcTransactionEntity();
 			 bcTransaction.setTxId(txId);
@@ -217,8 +218,6 @@ public class BizExchangeGiftController extends AbstractController {
 			// 补全兑换记录里交易id
 			bizExchangeRecord.setTxId(txId);
 			bizExchangeRecordService.update(bizExchangeRecord);
-//			contractService.transferKey(privateKey, integralConfig.getContractAddress(), address,balance);
-//			return R.ok();
 		} catch (Exception e) {
 			return R.error(e.getMessage());
 		}

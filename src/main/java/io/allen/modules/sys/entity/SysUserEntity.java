@@ -65,6 +65,13 @@ public class SysUserEntity implements Serializable {
 	 * 角色ID列表
 	 */
 	private List<Long> roleIdList;
+	
+	/**
+	 * 角色名
+	 * 默认一个用户只绑定一个角色
+	 * 此字段为显示使用
+	 */
+	private String roleName;
 
 	/**
 	 * 创建时间
@@ -237,5 +244,13 @@ public class SysUserEntity implements Serializable {
 
 	public void setIntegralAddress(String integralAddress) {
 		this.integralAddress = integralAddress;
+	}
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 }

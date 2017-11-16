@@ -84,7 +84,38 @@ public class ContractService {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public TransactionResponse transferKeyNotWait(String privateKey, String contractAddress, String to,
+			BigInteger value) {
+		try {
+			TransactionManager transactionManager = loadRawTransactionManagerKey(privateKey);
 
+			String transferData = ContranctUtils.getTransferData(new Address(to), new Uint256(value));
+
+			EthSendTransaction sendTransaction = transactionManager.sendTransaction(GAS_PRICE,
+					integralConfig.getGasLimit(), contractAddress, transferData, BigInteger.ZERO);
+			return new TransactionResponse<>(sendTransaction.getTransactionHash());
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+	}
+	
+	public TransactionResponse burnKeyNotWait(String privateKey, String contractAddress,
+			BigInteger value) {
+		try {
+			TransactionManager transactionManager = loadRawTransactionManagerKey(privateKey);
+
+			String burnData = ContranctUtils.getBurnData(new Uint256(value));
+
+			EthSendTransaction sendTransaction = transactionManager.sendTransaction(GAS_PRICE,
+					integralConfig.getGasLimit(), contractAddress, burnData, BigInteger.ZERO);
+			return new TransactionResponse<>(sendTransaction.getTransactionHash());
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public TransactionResponse transferKey(String privateKey, String contractAddress, String to,
 			BigInteger value) {
 		HumanStandardToken humanStandardToken = loadKey(contractAddress, privateKey);
