@@ -13,10 +13,10 @@ $(function () {
 			} }, 			
 			{ label: '类型  ', name: 'type', index: 'type', width: 40,formatter: function(value, options, row){
 				if(row.type === 1){
-					return '<span class="btn btn-small btn-warning">基础发放</span>';
+					return '<span class="label label-primary">基础发放</span>';
 				}				
 				if(row.type === 2){
-					return '<span class="btn btn-small btn-warning">积分发放</span>';
+					return '<span class="label label-info">积分发放</span>';
 				}
 			} }, 			
 			{ label: '创建时间', name: 'createTime', index: 'create_time', width: 80 }			

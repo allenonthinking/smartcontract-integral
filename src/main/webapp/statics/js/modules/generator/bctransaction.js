@@ -7,18 +7,18 @@ $(function () {
 			{ label: '交易ID', name: 'txId', index: 'tx_id', width: 80 }, 			
 			{ label: '状态 ', name: 'status', index: 'status', width: 20 ,formatter: function(value, options, row){
 				if(row.status === 0){
-					return '<span class="btn btn-small btn-warning">未知</span>';
+					return '<span class="label label-default">未知</span>';
 				}				
 				if(row.status === -1){
-					return '<span class="btn btn-small btn-warning">失败</span>';
+					return '<span class="label label-dange">失败</span>';
 				}
 				
 				if(row.status < 12 && row.status >0 ){
-					return '<span class="btn btn-small btn-warning">'+row.status+'/12</span>';
+					return '<span class="label label-info">'+row.status+'/12</span>';
 				}
 				
 				if(row.status >= 12 ){
-					return '<span class="btn btn-small btn-warning">成功</span>';
+					return '<span class="label label-success">成功</span>';
 				}
 			}}, 			
 			{ label: '发起人地址', name: 'fromAddress', index: 'from_address', width: 80 }, 			
@@ -27,10 +27,10 @@ $(function () {
 			{ label: '金额', name: 'amount', index: 'amount', width: 30 }, 			
 			{ label: '类型 ', name: 'type', index: 'type', width: 20,formatter: function(value, options, row){
 				if(row.type === 1){
-					return '<span class="btn btn-small btn-warning">普通转账</span>';
+					return '<span class="label label-primary">普通转账</span>';
 				}				
 				if(row.type === 2){
-					return '<span class="btn btn-small btn-warning">积分转账</span>';
+					return '<span class="label label-success">积分转账</span>';
 				}
 			} }			
         ],
