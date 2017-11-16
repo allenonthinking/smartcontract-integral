@@ -110,6 +110,7 @@ INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, 
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('3', '1', '角色管理', 'modules/sys/role.html', NULL, '1', 'fa fa-user-secret', '1');
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('4', '1', '菜单管理', 'modules/sys/menu.html', NULL, '1', 'fa fa-th-list', '2');
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('5', '1', 'SQL监控', 'druid/sql.html', NULL, '1', 'fa fa-bug', '4');
+
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('15', '2', '查看', NULL, 'sys:admin:list,sys:admin:info', '2', NULL, '0');
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('16', '2', '新增', NULL, 'sys:admin:save,sys:role:select:system', '2', NULL, '0');
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('17', '2', '修改', NULL, 'sys:admin:update,sys:role:select:system', '2', NULL, '0');
@@ -123,35 +124,14 @@ INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, 
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('25', '4', '修改', NULL, 'sys:menu:update,sys:menu:select', '2', NULL, '0');
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('26', '4', '删除', NULL, 'sys:menu:delete', '2', NULL, '0');
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('27', '1', '参数管理', 'modules/sys/config.html', 'sys:config:list,sys:config:info,sys:config:save,sys:config:update,sys:config:delete', '1', 'fa fa-sun-o', '6');
+
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('29', '1', '系统日志', 'modules/sys/log.html', 'sys:log:list', '1', 'fa fa-file-text-o', '7');
+
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('31', '1', '部门管理', 'modules/sys/dept.html', NULL, '1', 'fa fa-file-code-o', '3');
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('32', '31', '查看', NULL, 'sys:dept:list,sys:dept:info', '2', NULL, '0');
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('33', '31', '新增', NULL, 'sys:dept:save,sys:dept:select', '2', NULL, '0');
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('34', '31', '修改', NULL, 'sys:dept:update,sys:dept:select', '2', NULL, '0');
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('35', '31', '删除', NULL, 'sys:dept:delete', '2', NULL, '0');
-
-
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('36', '0', '员工', NULL, NULL, '0', 'fa fa-male', '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('37', '0', '积分', NULL, NULL, '0', 'fa fa-diamond', '0');
-
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('38', '36', '员工管理', 'modules/sys/user.html', 'sys:dept:list', '1', 'fa fa-users', '1');
-
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('39', '38', '查看', NULL, 'sys:user:list,sys:user:info', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('40', '38', '新增', NULL, 'sys:user:save,sys:role:select:normal', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('41', '38', '修改', NULL, 'sys:user:update,sys:role:select:normal', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('42', '38', '删除', NULL, 'sys:user:delete', '2', NULL, '0');
-
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('43', '37', '积分管理', 'modules/integral/manager.html','sys:role:oneself,sys:dept:list', '1', 'fa fa-university', '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('44', '37', '个人积分', 'modules/integral/personal.html', 'sys:role:oneself,sys:dept:list,integral:user:account', '1', 'fa fa-id-card', '1');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('45', '44', '绑定积分账户', NULL, 'integral:user:binding', '2', NULL, '0');
-
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('46', '43', '积分发放', NULL, 'integral:manager:savebalance', '2', NULL, '0');
-
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('47', '37', '积分详情', 'modules/integral/integralinfo.html',NULL, '1', 'fa fa-file-text-o', '0');
-
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('48', '0', '礼品', NULL, NULL, '0', 'fa fa-gift', '0');
-
-
 
 -- 积分表
 CREATE TABLE `sys_integral` (
@@ -250,6 +230,61 @@ CREATE TABLE `biz_exchange_record` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='礼品兑换记录';
 
+INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('36', '0', '员工', NULL, NULL, '0', 'fa fa-male', '0');
+INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('37', '0', '积分', NULL, NULL, '0', 'fa fa-diamond', '0');
+INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('48', '0', '礼品', NULL, NULL, '0', 'fa fa-gift', '0');
+
+INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('38', '36', '员工管理', 'modules/sys/user.html', 'sys:dept:list', '1', 'fa fa-users', '1');
+	INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('39', '38', '查看', NULL, 'sys:user:list,sys:user:info', '2', NULL, '0');
+	INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('40', '38', '新增', NULL, 'sys:user:save,sys:role:select:normal', '2', NULL, '0');
+	INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('41', '38', '修改', NULL, 'sys:user:update,sys:role:select:normal', '2', NULL, '0');
+	INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('42', '38', '删除', NULL, 'sys:user:delete', '2', NULL, '0');
+
+INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('43', '37', '积分管理', 'modules/integral/manager.html','sys:role:oneself,sys:dept:list', '1', 'fa fa-university', '0');
+	INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('46', '43', '积分发放', NULL, 'integral:manager:savebalance', '2', NULL, '0');
+
+INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('44', '37', '个人积分', 'modules/integral/personal.html', 'sys:role:oneself,sys:dept:list,integral:user:account', '1', 'fa fa-id-card', '1');
+	INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('45', '44', '绑定积分账户', NULL, 'integral:user:binding', '2', NULL, '0');
+
+INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('47', '37', '积分详情', 'modules/integral/integralinfo.html',NULL, '1', 'fa fa-file-text-o', '0');
+
+
+INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('49','1', '区块链账户', 'modules/generator/bcadminaccount.html', NULL, '1', 'fa fa-file-code-o', '6');
+	INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('50', '49', '查看', null, 'bcadminaccount:list,bcadminaccount:info', '2', null, '6');
+	INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('51', '49', '新增', null, 'bcadminaccount:save', '2', null, '6');
+	INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('52', '49', '修改', null, 'bcadminaccount:update', '2', null, '6');
+	INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('53', '49', '删除', null, 'bcadminaccount:delete', '2', null, '6');
+
+
+INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('54','1', '默认区块链账户', 'modules/generator/bcdefaultaccount.html', NULL, '1', 'fa fa-file-code-o', '6');
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('55', '54', '查看', null, 'bcdefaultaccount:list,bcdefaultaccount:info', '2', null, '6');
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('56', '54', '新增', null, 'bcdefaultaccount:save', '2', null, '6');
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('57', '54', '修改', null, 'bcdefaultaccount:update', '2', null, '6');
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('58', '54', '删除', null, 'bcdefaultaccount:delete', '2', null, '6');
+    
+INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('59','37', '交易表', 'modules/generator/bctransaction.html', NULL, '1', 'fa fa-bar-chart', '6');
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('60', '59', '查看', null, 'bctransaction:list,bctransaction:info', '2', null, '6');
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('61', '59', '新增', null, 'bctransaction:save', '2', null, '6');
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('62', '59', '修改', null, 'bctransaction:update', '2', null, '6');
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('63', '59', '删除', null, 'bctransaction:delete', '2', null, '6');
+
+INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('64','48', '礼品兑换记录', 'modules/generator/bizexchangerecord.html', NULL, '1', 'fa fa-file-code-o', '6');
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('65', '64', '查看', null, 'bizexchangerecord:list,bizexchangerecord:info', '2', null, '6');
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('66', '64', '新增', null, 'bizexchangerecord:save', '2', null, '6');
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('67', '64', '修改', null, 'bizexchangerecord:update', '2', null, '6');
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('69', '64', '删除', null, 'bizexchangerecord:delete', '2', null, '6');
+
+INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('70','48', '个人兑换记录', 'modules/generator/personalexchangerecord.html', 'bizexchangerecord:personal:list', '1', 'fa fa-file-code-o', '7');    
+    
+INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('71','48', '礼品管理', 'modules/generator/bizgift.html', NULL, '1', 'fa fa-align-justify', '6');
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('72', '71', '查看', null, 'bizgift:list,bizgift:info', '2', null, '6'）;
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('73', '71', '新增', null, 'bizgift:save', '2', null, '6'）;
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('74', '71', '修改', null, 'bizgift:update', '2', null, '6'）;
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('75', '71', '删除', null, 'bizgift:delete', '2', null, '6'）;
+
+INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('76','48', '礼品兑换', 'modules/generator/exchangegift.html', 'bizgift:exchange:list', '1', 'fa fa-exchange', '7');    
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('77', '76', '兑换', null, 'bizgift:exchange:save', '2', null, '6');
+    
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- 代码生成器相关SQL，如果不使用allen-gen模块，则不用执行下面SQL -------------------------------------------------------------------------------------------------------------
