@@ -41,7 +41,7 @@
 		select * from biz_exchange_record
 		<where>
 			<if test="true">
-				and createId  = #{userId}
+				and create_id  = #{userId}
 			</if>
 		</where>		
         <choose>
@@ -61,7 +61,7 @@
 		select count(*) from biz_exchange_record 
 		<where>
 			<if test="true">
-				and createId  = #{userId}
+				and create_id  = #{userId}
 			</if>
 		</where>		
 	</select>

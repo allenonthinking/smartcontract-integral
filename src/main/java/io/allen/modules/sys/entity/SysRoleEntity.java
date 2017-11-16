@@ -50,7 +50,7 @@ public class SysRoleEntity implements Serializable {
 	private List<Long> deptIdList;
 	
 	/**
-	 * 类型    1：系统角色   2：普通角色
+	 * 类型    1：管理角色   2：普通角色
 	 */
 	private Integer type;
 	

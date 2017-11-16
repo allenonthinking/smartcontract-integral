@@ -1,6 +1,6 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: baseURL + 'bizexchangerecord/list',
+        url: baseURL + 'bizexchangerecord/personal/list',
         datatype: "json",
         colModel: [			
 			//{ label: 'id', name: 'id', index: 'id', width: 15, key: true },

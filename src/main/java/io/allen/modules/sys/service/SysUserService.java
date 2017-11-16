@@ -29,7 +29,7 @@ public interface SysUserService {
 	List<Long> queryAllMenuId(Long userId);
 
 	/**
-	 * 根据用户名，查询系统用户
+	 * 根据用户名，查询管理用户
 	 */
 	SysUserEntity queryByUserName(String username);
 	
@@ -51,12 +51,12 @@ public interface SysUserService {
 	int queryTotal(Map<String, Object> map);
 	
 	/**
-	 *查询系统用户列表 
+	 *查询管理用户列表 
 	 */
 	List<SysUserEntity> querySystemList(Map<String, Object> map);
 	
 	/**
-	 * 查询系统用户总数
+	 * 查询管理用户总数
 	 */
 	int querySystemTotal(Map<String, Object> map);
 	

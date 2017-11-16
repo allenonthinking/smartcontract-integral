@@ -76,7 +76,7 @@ public class SysRoleController extends AbstractController {
 	
 	
 	/**
-	 * 系统角色列表
+	 * 管理角色列表
 	 */
 	@RequestMapping("/select/system")
 	@RequiresPermissions("sys:role:select:system")

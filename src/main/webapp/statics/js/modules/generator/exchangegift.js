@@ -18,6 +18,8 @@ $(function () {
         rownumWidth: 25, 
         autowidth:true,
         multiselect: true,
+        multiboxonly:true,  
+        oneselect :true,
         pager: "#jqGridPager",
         jsonReader : {
             root: "page.list",
@@ -33,6 +35,11 @@ $(function () {
         gridComplete:function(){
         	//隐藏grid底部滚动条
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
+        },
+        beforeSelectRow: function(rowid, e)
+        {
+        	$("#jqGrid").jqGrid('resetSelection');
+            return(true);
         }
     });
 });

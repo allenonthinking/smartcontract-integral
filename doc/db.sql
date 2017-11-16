@@ -43,7 +43,7 @@ CREATE TABLE `sys_role` (
   `remark` varchar(100) COMMENT '备注',
   `dept_id` bigint(20) COMMENT '部门ID',
   `create_time` datetime COMMENT '创建时间',
-  `type` int COMMENT '类型     1：系统角色   2：普通角色',
+  `type` int COMMENT '类型     1：管理角色   2：普通角色',
   PRIMARY KEY (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色';
 
@@ -277,14 +277,20 @@ INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, 
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('70','48', '个人兑换记录', 'modules/generator/personalexchangerecord.html', 'bizexchangerecord:personal:list', '1', 'fa fa-file-code-o', '7');    
     
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('71','48', '礼品管理', 'modules/generator/bizgift.html', NULL, '1', 'fa fa-align-justify', '6');
-    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('72', '71', '查看', null, 'bizgift:list,bizgift:info', '2', null, '6'）;
-    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('73', '71', '新增', null, 'bizgift:save', '2', null, '6'）;
-    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('74', '71', '修改', null, 'bizgift:update', '2', null, '6'）;
-    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('75', '71', '删除', null, 'bizgift:delete', '2', null, '6'）;
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('72', '71', '查看', null, 'bizgift:list,bizgift:info', '2', null, '6');
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('73', '71', '新增', null, 'bizgift:save', '2', null, '6');
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('74', '71', '修改', null, 'bizgift:update', '2', null, '6');
+    INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('75', '71', '删除', null, 'bizgift:delete', '2', null, '6');
 
 INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('76','48', '礼品兑换', 'modules/generator/exchangegift.html', 'bizgift:exchange:list', '1', 'fa fa-exchange', '7');    
     INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('77', '76', '兑换', null, 'bizgift:exchange:save', '2', null, '6');
     
+
+    -- 管理用户绑定积分账户
+	INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('78', '2', '绑定积分账户', null, 'sys:admin:binding', '2', null, '6');    
+	
+	-- 个人兑换记录状态查询
+	INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('79', '70', '状态查询', null, 'bctransaction:info', '2', null, '6');   
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- 代码生成器相关SQL，如果不使用allen-gen模块，则不用执行下面SQL -------------------------------------------------------------------------------------------------------------
@@ -360,6 +366,7 @@ CREATE TABLE `schedule_job_log` (
 INSERT INTO `schedule_job` (`bean_name`, `method_name`, `params`, `cron_expression`, `status`, `remark`, `create_time`) VALUES ('testTask', 'test', 'allen', '0 0/30 * * * ?', '0', '有参数测试', '2016-12-01 23:16:46');
 INSERT INTO `schedule_job` (`bean_name`, `method_name`, `params`, `cron_expression`, `status`, `remark`, `create_time`) VALUES ('testTask', 'test2', NULL, '0 0/30 * * * ?', '1', '无参数测试', '2016-12-03 14:55:56');
 INSERT INTO `schedule_job` (`bean_name`, `method_name`, `params`, `cron_expression`, `status`, `remark`, `create_time`) VALUES ('txStatusCheckTask', 'check', NULL, '0 0/5 * * * ?', '1', '交易状态检查', '2017-11-13 14:55:56');
+INSERT INTO `schedule_job` (`bean_name`, `method_name`, `params`, `cron_expression`, `status`, `remark`, `create_time`) VALUES ('bcAccountInitStatusCheckTask', 'checkBalance', NULL, '0 0/5 * * * ?', '1', '区块链账户初始化状态检查', '2017-11-13 14:55:56');
 
 
 --  quartz自带表结构

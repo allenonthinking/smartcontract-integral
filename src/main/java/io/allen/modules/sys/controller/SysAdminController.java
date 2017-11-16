@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 系统用户
+ * 管理用户
  * 
  * @author allen.liu
  * @date 2016年11月1日 
@@ -49,7 +49,7 @@ public class SysAdminController extends AbstractController {
 	@Autowired
 	private BcAdminAccountService bcAdminAccountService ;
 	/**
-	 * 系统用户列表
+	 * 管理用户列表
 	 */
 	@RequestMapping("/list")
 	@RequiresPermissions("sys:admin:list")
