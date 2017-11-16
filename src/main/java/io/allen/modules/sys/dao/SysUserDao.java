@@ -39,12 +39,12 @@ public interface SysUserDao extends BaseDao<SysUserEntity> {
 	int updatePassword(Map<String, Object> map);
 	
 	/**
-	 *查询系统用户列表 
+	 *查询管理用户列表 
 	 */
 	List<SysUserEntity> querySystemList(Map<String, Object> map);
 	
 	/**
-	 * 查询系统用户总数
+	 * 查询管理用户总数
 	 */
 	int querySystemTotal(Map<String, Object> map);
 	
