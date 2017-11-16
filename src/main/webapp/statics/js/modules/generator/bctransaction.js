@@ -3,7 +3,7 @@ $(function () {
         url: baseURL + 'bctransaction/list',
         datatype: "json",
         colModel: [			
-			{ label: 'id', name: 'id', index: 'id', width: 10, key: true },
+			//{ label: 'id', name: 'id', index: 'id', width: 10, key: true },
 			{ label: '交易ID', name: 'txId', index: 'tx_id', width: 80 }, 			
 			{ label: '状态 ', name: 'status', index: 'status', width: 20 ,formatter: function(value, options, row){
 				if(row.status === 0){
@@ -44,7 +44,7 @@ $(function () {
         rownumbers: true, 
         rownumWidth: 25, 
         autowidth:true,
-        multiselect: true,
+        //multiselect: true,
         pager: "#jqGridPager",
         jsonReader : {
             root: "page.list",

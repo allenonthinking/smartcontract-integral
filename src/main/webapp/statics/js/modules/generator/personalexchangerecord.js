@@ -3,13 +3,19 @@ $(function () {
         url: baseURL + 'bizexchangerecord/list',
         datatype: "json",
         colModel: [			
-			{ label: 'id', name: 'id', index: 'id', width: 50, key: true },
-			{ label: '交易', name: 'txId', index: 'tx_id', width: 80 }, 			
-			{ label: '转账积分数额', name: 'transferValue', index: 'transfer_value', width: 80 }, 			
-			{ label: '兑换数量', name: 'amount', index: 'amount', width: 80 }, 			
-			{ label: '创建时间', name: 'createTime', index: 'create_time', width: 80 }, 			
-			{ label: '账户地址', name: 'address', index: 'address', width: 80 }, 			
-			{ label: '兑换人id', name: 'createId', index: 'create_id', width: 80 }			
+			//{ label: 'id', name: 'id', index: 'id', width: 15, key: true },
+			{ label: '交易ID', name: 'txId', index: 'tx_id', width: 80,formatter: function(value, options, row){
+				return value === null ? '<span class="label label-danger">积分未转账</span>' : value;
+			}  }, 			
+			{ label: '转账积分数额', name: 'transferValue', index: 'transfer_value', width: 20 }, 			
+			{ label: '兑换数量', name: 'amount', index: 'amount', width: 15 },
+			{ label: '创建时间', name: 'createTime', index: 'create_time', width: 80 },		
+			{ label: '操作', name: 'controller', width: 35, formatter: function(value, options, row){
+				return row.txId === null ? 
+						'<span class="label label-warning">积分未转账</span>' :
+						'<span class="btn btn-small btn-info pointer" onclick="vm.status('+row.id+')">查看状态</span>';
+			}}				
+				
         ],
 		viewrecords: true,
         height: 385,
@@ -18,7 +24,7 @@ $(function () {
         rownumbers: true, 
         rownumWidth: 25, 
         autowidth:true,
-        multiselect: true,
+        //multiselect: true,
         pager: "#jqGridPager",
         jsonReader : {
             root: "page.list",
@@ -49,6 +55,32 @@ var vm = new Vue({
 		query: function () {
 			vm.reload();
 		},
+        status: function (rowid) {
+            var rowData = getRowData(rowid);
+        	$.get(baseURL + "bctransaction/info/"+rowid, function(r){
+        			var statusView = "未知";
+        			if(r.bcTransaction.status == 0){
+        				statusView =  '<span class="label label-default">未知</span>';
+        			}
+        			if(r.bcTransaction.status == -1){
+        				statusView =  '<span class="label label-dange">失败</span>';
+        			}
+        			if(r.bcTransaction.status < 12 ){
+        				statusView =  '<span class="label label-info">'+r.bcTransaction.status+'/12</span>';
+        			}
+        			if(r.bcTransaction.status >= 12){
+        				statusView =  '<span class="label label-success">成功</span>';
+        			}
+    			layer.open({
+    				type: 1,
+    				//skin: 'layui-layer-molv',
+    				title: "状态",
+    				area: ['450px', '110px'],
+    				shadeClose: true,
+    				content: '<div class="sysNotice col"><table class="layui-table"><colgroup><col width="150"><col></colgroup><tbody><tr><td>兑换状态:</td><td class="status">'+ statusView +'</td></tr></tbody></table></div>'
+    			});   
+			});	            
+        },
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
