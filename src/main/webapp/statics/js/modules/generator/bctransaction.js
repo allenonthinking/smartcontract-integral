@@ -30,7 +30,10 @@ $(function () {
 					return '<span class="label label-primary">普通转账</span>';
 				}				
 				if(row.type === 2){
-					return '<span class="label label-success">积分转账</span>';
+					return '<span class="label label-info">积分转账</span>';
+				}
+				if(row.type === 3){
+					return '<span class="label label-success">积分兑换</span>';
 				}
 			} }			
         ],

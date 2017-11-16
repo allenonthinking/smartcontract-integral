@@ -208,11 +208,11 @@ public class BizExchangeGiftController extends AbstractController {
 			 bcTransaction.setStatus(0);
 			 bcTransaction.setFromAddress(fromAddress);
 			 bcTransaction.setContractAddress(jytContractAddress);
-			 bcTransaction.setToAddress(toAddress);
+			 //bcTransaction.setToAddress(toAddress);
 			 bcTransaction.setAmount(transferValue.toString());
 			 bcTransaction.setValue(balance.toString());
 			 bcTransaction.setDecimals(decimals.longValue());
-			 bcTransaction.setType(2);
+			 bcTransaction.setType(3);
 			 bcTransactionService.save(bcTransaction);
 			// 补全兑换记录里交易id
 			bizExchangeRecord.setTxId(txId);

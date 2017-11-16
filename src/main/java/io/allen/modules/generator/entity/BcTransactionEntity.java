@@ -34,7 +34,7 @@ public class BcTransactionEntity implements Serializable {
 	private Long decimals;
 	//真正转账金额
 	private String value;
-	//类型   1：普通转账   2：积分转账
+	//类型   1：普通转账   2：积分转账 3:积分兑换
 	private Integer type;
 
 	/**
@@ -158,13 +158,13 @@ public class BcTransactionEntity implements Serializable {
 		return value;
 	}
 	/**
-	 * 设置：类型   1：普通转账   2：积分转账
+	 * 设置：类型   1：普通转账   2：积分转账 3:积分兑换
 	 */
 	public void setType(Integer type) {
 		this.type = type;
 	}
 	/**
-	 * 获取：类型   1：普通转账   2：积分转账
+	 * 获取：类型   1：普通转账   2：积分转账 3:积分兑换
 	 */
 	public Integer getType() {
 		return type;
