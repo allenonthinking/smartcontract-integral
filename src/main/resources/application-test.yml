@@ -3,7 +3,7 @@ spring:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver
         druid:
-            url: jdbc:mysql://localhost:3306/test_db?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+            url: jdbc:mysql://localhost:3306/test1?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
             username: root
             password: 123456
             initial-size: 10
@@ -38,11 +38,11 @@ allen:
     shiro:
         redis: false # true表示shiro session存到redis里，需要开启redis，才会生效【分布式场景】
 
-    nodeEndpoint: http://192.168.32.182:8545
+    nodeEndpoint: http://192.168.56.101:8545
 
     fromAddress: "0x00be47da65f4cbfa941a97629f3873b0ad006d27"
 
-    integralContrctAddress: "0x2a89331b94897110b2fc9a74127b433babb0ffbe"
+    integralContrctAddress: "0x64d5044ecbe43b04954441ac023c1be774dc6211"
 
     integralRecycleAddress: "0x3d8219f37278287b65752876cef17d142993f20f"
 

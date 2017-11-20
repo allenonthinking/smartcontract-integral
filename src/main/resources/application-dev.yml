@@ -4,7 +4,7 @@ spring:
         driverClassName: com.mysql.jdbc.Driver
         druid:
             #url: jdbc:mysql://localhost:3306/allen?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
-            url: jdbc:mysql://localhost:3306/test1?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+            url: jdbc:mysql://192.168.33.164:3306/test1?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
             username: root
             password: 123456
             initial-size: 10
@@ -39,11 +39,11 @@ allen:
     shiro:
         redis: false # true表示shiro session存到redis里，需要开启redis，才会生效【分布式场景】
 
-    nodeEndpoint: http://192.168.56.101:8545
+    nodeEndpoint: 192.168.33.164:8545
 
     fromAddress: "0x1e07567302633f579023fba7b952442dfec89259"
 
-    integralContrctAddress: "0x64d5044ecbe43b04954441ac023c1be774dc6211"
+    integralContrctAddress: "0x868a658291b69dde4531fbf598b2d15080da2520"
 
     integralRecycleAddress: "0x3d8219f37278287b65752876cef17d142993f20f"
 
