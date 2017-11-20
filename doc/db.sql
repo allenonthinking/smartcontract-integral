@@ -172,7 +172,7 @@ CREATE TABLE `bc_user_admin` (
 CREATE TABLE `bc_transaction`(
 	`id` bigint NOT NULL AUTO_INCREMENT,
 	`tx_id` varchar(200) COMMENT '交易ID',
-	`status` tinyint  DEFAULT 0 COMMENT '状态  -1:失败 0:未知  1-12:确认数量  >=12 确认成功 ',
+	`status` int  DEFAULT 0 COMMENT '状态  -1:失败 0:未知  1-12:确认数量  >=12 确认成功 ',
 	`from_address` varchar(200) COMMENT '发起人地址',
 	`to_address`   varchar(200) COMMENT '接收人地址',
 	`contract_address`   varchar(200) COMMENT '合约地址',
