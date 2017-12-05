@@ -39,7 +39,7 @@ allen:
     shiro:
         redis: false # true表示shiro session存到redis里，需要开启redis，才会生效【分布式场景】
 
-    nodeEndpoint: 192.168.33.164:8545
+    nodeEndpoint: http://192.168.33.164:8545
 
     fromAddress: "0x1e07567302633f579023fba7b952442dfec89259"
 
